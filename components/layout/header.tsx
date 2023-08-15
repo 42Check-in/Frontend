@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/promise-function-async */
-/* eslint-disable @typescript-eslint/no-misused-promises */
-import { Logo } from '@/assets/images';
-import { userIcon, darkModeIcon, noticeIcon } from '@/assets/icons';
-import { type ReactElement } from 'react';
-import { useRouter } from 'next/router';
 
-interface LayoutProps {
+/* eslint-disable @typescript-eslint/no-misused-promises */
+import { darkModeIcon, noticeIcon, userIcon } from '@/assets/icons';
+import { Logo } from '@/assets/images';
+import { useRouter } from 'next/router';
+import type { ReactElement } from 'react';
+
+interface HeaderProps {
   children: React.ReactNode;
 }
 
-export default function Header({ children }: LayoutProps): ReactElement {
+export default function Header({ children }: HeaderProps): ReactElement {
   const logo = Logo;
   const route = useRouter();
   return (
