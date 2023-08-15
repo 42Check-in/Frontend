@@ -1,38 +1,37 @@
-import { type AppProps } from 'next/app';
-import '../styles/globals.css';
-import React, { type ReactElement, useEffect, useState } from 'react';
+import { type AppProps } from 'next/app'
+import '../styles/globals.css'
+import React, { type ReactElement, useEffect, useState } from 'react'
 // import axios from 'axios';
-import { Router } from 'next/router';
-import Loading from '@/components/loading';
-import Head from 'next/head';
+import { Router } from 'next/router'
+import Loading from '@/components/loading'
+import Head from 'next/head'
 
-export default function MyApp({ Component, pageProps }: AppProps) : ReactElement {
+export default function MyApp({ Component, pageProps }: AppProps): ReactElement {
   // const route = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const start = (): void => {
-      setLoading(true);
-    };
+      setLoading(true)
+    }
     const end = (): void => {
-      setLoading(false);
-    };
+      setLoading(false)
+    }
 
-    Router.events.on('routeChangeStart', start);
-    Router.events.on('routeChangeComplete', end);
-    Router.events.on('routeChangeError', end);
+    Router.events.on('routeChangeStart', start)
+    Router.events.on('routeChangeComplete', end)
+    Router.events.on('routeChangeError', end)
 
     return () => {
-      Router.events.off('routeChangeStart', start);
-      Router.events.off('routeChangeComplete', end);
-      Router.events.off('routeChangeError', end);
-    };
-  }, []);
+      Router.events.off('routeChangeStart', start)
+      Router.events.off('routeChangeComplete', end)
+      Router.events.off('routeChangeError', end)
+    }
+  }, [])
 
   // useEffect(() => {
   //   const url = new URL(window.location.href);
 
-    
   //   const postData = async () => {
   //     const code = url.searchParams.get('code');
   //     try {
@@ -57,10 +56,10 @@ export default function MyApp({ Component, pageProps }: AppProps) : ReactElement
     <div>
       <Head>
         <title>42Check-in</title>
-        <meta charSet="utf-8" />
-        <meta name="description" content="모든 예약을 한 곳에" />
+        <meta charSet='utf-8' />
+        <meta name='description' content='모든 예약을 한 곳에' />
       </Head>
-      {loading ? <Loading /> : <Component pageProps={pageProps} />};
+      {loading ? <Loading /> : <Component pageProps={pageProps} />}
     </div>
-  );
+  )
 }
