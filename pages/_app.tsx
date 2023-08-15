@@ -6,7 +6,7 @@ import { Router } from 'next/router';
 import Loading from '@/components/loading';
 import Head from 'next/head';
 
-export default function MyApp({ Component, pageProps }: AppProps) : ReactElement {
+export default function MyApp({ Component, pageProps }: AppProps): ReactElement {
   // const route = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -32,7 +32,6 @@ export default function MyApp({ Component, pageProps }: AppProps) : ReactElement
   // useEffect(() => {
   //   const url = new URL(window.location.href);
 
-    
   //   const postData = async () => {
   //     const code = url.searchParams.get('code');
   //     try {
@@ -57,10 +56,10 @@ export default function MyApp({ Component, pageProps }: AppProps) : ReactElement
     <div>
       <Head>
         <title>42Check-in</title>
-        <meta charSet="utf-8" />
-        <meta name="description" content="모든 예약을 한 곳에" />
+        <meta charSet='utf-8' />
+        <meta name='description' content='모든 예약을 한 곳에' />
       </Head>
-      {loading ? <Loading /> : <Component pageProps={pageProps} />};
+      {loading ? <Loading /> : <Component pageProps={pageProps} />}
     </div>
   );
 }
