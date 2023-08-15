@@ -6,14 +6,15 @@ export default function Home(): ReactElement {
   return (
     <div>
       <Header>
-        <div>
+        <div className='bg-slate-700 w-screen h-screen opacity-20 z-10 absolute' />
+        <div className='z-0 relative'>
           <Image
             src={'https://i.imgur.com/2fOlNnG.png'}
             alt='conferenceImg'
-            width={1000}
-            height={1000}
+            width={900}
+            height={900}
             unoptimized={true}
-            className=' fixed -bottom-[15%] -left-[200px]'
+            className=' fixed -bottom-[13%] -left-[200px]'
           />
           <Image
             src={'https://i.imgur.com/DkpUR4N.png'}
@@ -26,8 +27,8 @@ export default function Home(): ReactElement {
           <Image
             src={'https://i.imgur.com/0zfzFX5.png'}
             alt='sttingManImg'
-            width={1000}
-            height={1000}
+            width={900}
+            height={900}
             unoptimized={true}
             className=' fixed -right-40 bottom-0'
           />

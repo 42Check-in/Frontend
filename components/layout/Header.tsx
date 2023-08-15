@@ -15,7 +15,7 @@ export default function Header({ children }: HeaderProps): ReactElement {
   const route = useRouter();
   return (
     <>
-      <header className='bg-blue-500'>
+      <header className='bg-blue-500 fixed '>
         <nav className='flex items-center justify-between px-10'>
           <button className='flex pb-3' onClick={() => route.push('/')}>
             {logo}
