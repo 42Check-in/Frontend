@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 
 interface HeaderProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export default function Header({ children }: HeaderProps): ReactElement {
@@ -15,7 +15,7 @@ export default function Header({ children }: HeaderProps): ReactElement {
   const route = useRouter();
   return (
     <>
-      <header className='bg-blue-500 fixed w-screen z-50'>
+      <header className='bg-blue-500 w-screen fixed z-50'>
         <nav className='flex items-center justify-between px-10'>
           <button className='flex pb-3' onClick={() => route.push('/')}>
             {logo}
@@ -27,7 +27,7 @@ export default function Header({ children }: HeaderProps): ReactElement {
           </div>
         </nav>
       </header>
-      <div>{children}</div>
+      <div className='pb-20' />
     </>
   );
 }
