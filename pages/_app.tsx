@@ -55,13 +55,13 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
   // });
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>42Check-in</title>
         <meta charSet='utf-8' />
         <meta name='description' content='모든 예약을 한 곳에' />
       </Head>
-      {loading ? <Loading /> : <Component pageProps={pageProps} />}
-    </Layout>
+      <Layout>{loading ? <Loading /> : <Component pageProps={pageProps} />}</Layout>
+    </>
   );
 }

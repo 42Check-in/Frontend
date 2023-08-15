@@ -1,16 +1,17 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { type ReactElement } from 'react';
 
 export default function Home(): ReactElement {
   return (
     <>
       {/* 메인 페이지 블러 처리를 위한 div */}
-      <div className='bg-white w-screen opacity-60 -z-10 absolute'>
+      <div className='bg-white w-screen opacity-30 -z-10 absolute'>
         {/* 뒷배경 이미지들 */}
         <div className='-z-20 relative'>
           <Image
             src={'https://i.imgur.com/2fOlNnG.png'}
-            alt='conferenceImg'
+            alt='calendarImg'
             width={900}
             height={900}
             unoptimized={true}
@@ -34,7 +35,49 @@ export default function Home(): ReactElement {
           />
         </div>
       </div>
-      <div className=''>안녕하세요.asdfasdfasdfasd</div>
+      {/* 안에 4가지 카테고리 (vh ) */}
+      <div className='h-[90vh] justify-center items-center space-x-10 mx-4 grid grid-flow-row lg:grid-cols-4 grid-cols-2 '>
+        <Link href={'/conferences'} className='border rounded-3xl h-[45%]'>
+          <h2>회의실</h2>
+          <Image
+            src={'https://i.imgur.com/BgCoX27.png'}
+            alt='conferences'
+            width={100}
+            height={100}
+            unoptimized={true}
+          />
+        </Link>
+        <Link href={'/visitors'} className='border rounded-3xl h-[45%]'>
+          <h2>외부인 방문</h2>
+          <Image
+            src={'https://i.imgur.com/bZ095Nd.png'}
+            alt='visitors'
+            width={100}
+            height={100}
+            unoptimized={true}
+          />
+        </Link>
+        <Link href={'/presentations'} className='border rounded-3xl h-[45%]'>
+          <h2>수요지식회</h2>
+          <Image
+            src={'https://i.imgur.com/AhuDuIv.png'}
+            alt='presentations'
+            width={100}
+            height={100}
+            unoptimized={true}
+          />
+        </Link>
+        <Link href={'/equipments'} className='border rounded-3xl h-[45%]'>
+          <h2>기자재 대여</h2>
+          <Image
+            src={'https://i.imgur.com/qRynJ5O.png'}
+            alt='equipments'
+            width={100}
+            height={100}
+            unoptimized={true}
+          />
+        </Link>
+      </div>
     </>
   );
 }
