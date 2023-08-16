@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/promise-function-async */
-
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import { darkModeIcon, noticeIcon, userIcon } from '@/assets/icons';
 import { Logo } from '@/assets/images';
 import { useRouter } from 'next/router';

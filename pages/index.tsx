@@ -36,7 +36,7 @@ export default function Home(): ReactElement {
         </div>
       </div>
       {/* 안에 4가지 카테고리 (vh ) */}
-      <div className='h-[90vh] justify-center items-center space-x-10 mx-4 grid grid-flow-row lg:grid-cols-4 grid-cols-2 '>
+      <div className='h-[90vh] space-x-10 place-content-center place-items-center mx-4 grid grid-flow-row lg:grid-cols-4 grid-cols-2 '>
         <Link href={'/conferences'} className='border rounded-3xl h-[45%]'>
           <h2>회의실</h2>
           <Image

@@ -10,7 +10,7 @@ export default function Layout({ children }: LayoutProps): ReactElement {
   return (
     <>
       <Header />
-      <div>{children}</div>
+      <div className='h-full'>{children}</div>
     </>
   );
 }
