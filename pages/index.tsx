@@ -4,11 +4,11 @@ import { type ReactElement } from 'react';
 
 export default function Home(): ReactElement {
   return (
-    <div className='h-full flex justify-center items-center'>
+    <div className='flex h-full items-center justify-center'>
       {/* 메인 페이지 블러 처리를 위한 div */}
-      <div className='bg-white w-screen opacity-30 -z-10 absolute'>
+      <div className='absolute -z-10 w-screen bg-white opacity-30'>
         {/* 뒷배경 이미지들 */}
-        <div className='-z-20 relative'>
+        <div className='relative -z-20'>
           <Image
             src={'https://i.imgur.com/2fOlNnG.png'}
             alt='calendarImg'
@@ -36,10 +36,13 @@ export default function Home(): ReactElement {
         </div>
       </div>
       {/* 안에 4가지 카테고리 (vh ) */}
-      <div className='space-x-10 place-content-center place-items-center mx-4 grid grid-flow-row lg:grid-cols-4 grid-cols-2 '>
-        <div className='border rounded-3xl flex flex-col justify-center items-center'>
-          <Link href={'/conferences'}>
-            <h2>회의실</h2>
+      <div className='grid h-4/5 w-4/5 grid-cols-2 gap-8 lg:h-2/5 lg:grid-cols-4'>
+        <div className=' relative -z-10 flex w-full flex-col items-center justify-between rounded-3xl border bg-sky-300 opacity-60'>
+          <Link
+            href={'/conferences'}
+            className=' relative z-10 flex h-full w-full flex-col items-center justify-between'
+          >
+            <h2 className=' relative z-20 text-3xl font-extrabold text-gray-900'>회의실</h2>
             <Image
               src={'https://i.imgur.com/BgCoX27.png'}
               alt='conferences'
@@ -49,7 +52,7 @@ export default function Home(): ReactElement {
             />
           </Link>
         </div>
-        <Link href={'/visitors'} className='border rounded-3xl'>
+        <Link href={'/visitors'} className='rounded-3xl border'>
           <h2>외부인 방문</h2>
           <Image
             src={'https://i.imgur.com/bZ095Nd.png'}
@@ -59,7 +62,7 @@ export default function Home(): ReactElement {
             unoptimized={true}
           />
         </Link>
-        <Link href={'/presentations'} className='border rounded-3xl'>
+        <Link href={'/presentations'} className='rounded-3xl border'>
           <h2>수요지식회</h2>
           <Image
             src={'https://i.imgur.com/AhuDuIv.png'}
@@ -69,7 +72,7 @@ export default function Home(): ReactElement {
             unoptimized={true}
           />
         </Link>
-        <Link href={'/equipments'} className='border rounded-3xl'>
+        <Link href={'/equipments'} className='rounded-3xl border'>
           <h2>기자재 대여</h2>
           <Image
             src={'https://i.imgur.com/qRynJ5O.png'}
