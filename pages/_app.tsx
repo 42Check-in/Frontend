@@ -7,29 +7,32 @@ import { Router } from 'next/router';
 import React, { type ReactElement, useEffect, useState } from 'react';
 
 import '../styles/globals.css';
+import Login from './login';
 
 export default function MyApp({ Component, pageProps }: AppProps): ReactElement {
   // const route = useRouter();
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const start = (): void => {
-      setLoading(true);
-    };
-    const end = (): void => {
-      setLoading(false);
-    };
+  // 쿠키 또는 세션 검사하고
 
-    Router.events.on('routeChangeStart', start);
-    Router.events.on('routeChangeComplete', end);
-    Router.events.on('routeChangeError', end);
+  // useEffect(() => {
+  //   const start = (): void => {
+  //     setLoading(true);
+  //   };
+  //   const end = (): void => {
+  //     setLoading(false);
+  //   };
 
-    return () => {
-      Router.events.off('routeChangeStart', start);
-      Router.events.off('routeChangeComplete', end);
-      Router.events.off('routeChangeError', end);
-    };
-  }, []);
+  //   Router.events.on('routeChangeStart', start);
+  //   Router.events.on('routeChangeComplete', end);
+  //   Router.events.on('routeChangeError', end);
+
+  //   return () => {
+  //     Router.events.off('routeChangeStart', start);
+  //     Router.events.off('routeChangeComplete', end);
+  //     Router.events.off('routeChangeError', end);
+  //   };
+  // }, []);
 
   // useEffect(() => {
   //   const url = new URL(window.location.href);
@@ -53,7 +56,7 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
   //     setLoading(true);
   //   }
   // });
-
+  const login = false;
   return (
     <>
       <Head>
@@ -61,7 +64,15 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
         <meta charSet='utf-8' />
         <meta name='description' content='모든 예약을 한 곳에' />
       </Head>
-      <Layout>{loading ? <Loading /> : <Component pageProps={pageProps} />}</Layout>
+      {loading ? (
+        <Loading />
+      ) : login ? (
+        <Component pageProps={pageProps} />
+      ) : (
+        <Layout>
+          <Component pageProps={pageProps} />
+        </Layout>
+      )}
     </>
   );
 }
