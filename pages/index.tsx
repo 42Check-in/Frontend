@@ -33,52 +33,60 @@ export default function Home(): ReactElement {
         />
       </div>
       {/* 안에 4가지 카테고리 (vh ) */}
-      <div className='grid h-4/5 w-4/5 grid-cols-2 gap-8 lg:h-2/5 lg:grid-cols-4'>
-        <div className=' relative flex w-full flex-col items-center justify-between rounded-3xl border bg-sky-300 bg-opacity-60'>
-          <Link
-            href={'/conferences'}
-            className='flex h-full w-full flex-col items-center justify-between'
-          >
-            <h2 className='text-3xl font-extrabold text-gray-900'>회의실</h2>
+      <div className='mx-4 grid grid-cols-2 gap-x-10 gap-y-10 lg:h-2/5 lg:grid-cols-4'>
+        {/* 회의실 */}
+        <div className='category group bg-[#3983f2] bg-opacity-20'>
+          <Link href={'/conferences'} className='categoryIner'>
+            <h2 className='categoryText'>회의실</h2>
             <Image
               src={'https://i.imgur.com/BgCoX27.png'}
               alt='conferences'
-              width={100}
-              height={100}
+              width={250}
+              height={250}
               unoptimized={true}
+              className='group-hover:animate-bounce'
             />
           </Link>
         </div>
-        <Link href={'/visitors'} className='rounded-3xl border'>
-          <h2>외부인 방문</h2>
-          <Image
-            src={'https://i.imgur.com/bZ095Nd.png'}
-            alt='visitors'
-            width={100}
-            height={100}
-            unoptimized={true}
-          />
-        </Link>
-        <Link href={'/presentations'} className='rounded-3xl border'>
-          <h2>수요지식회</h2>
-          <Image
-            src={'https://i.imgur.com/AhuDuIv.png'}
-            alt='presentations'
-            width={100}
-            height={100}
-            unoptimized={true}
-          />
-        </Link>
-        <Link href={'/equipments'} className='rounded-3xl border'>
-          <h2>기자재 대여</h2>
-          <Image
-            src={'https://i.imgur.com/qRynJ5O.png'}
-            alt='equipments'
-            width={100}
-            height={100}
-            unoptimized={true}
-          />
-        </Link>
+        <div className='category group bg-[#4069FD] bg-opacity-60'>
+          <Link href={'/visitors'} className='categoryIner'>
+            <h2 className='categoryText'>외부인 방문</h2>
+            <Image
+              src={'https://i.imgur.com/bZ095Nd.png'}
+              alt='visitors'
+              width={400}
+              height={400}
+              unoptimized={true}
+              className='relative -bottom-[120px] group-hover:animate-bounce'
+            />
+          </Link>
+        </div>
+        <div className='category group bg-[#3983f2] bg-opacity-20'>
+          <Link href={'/presentations'} className='categoryIner'>
+            <h2 className='categoryText'>수요지식회</h2>
+            <Image
+              src={'https://i.imgur.com/AhuDuIv.png'}
+              alt='presentations'
+              width={200}
+              height={100}
+              unoptimized={true}
+              className='relative -bottom-[120px] group-hover:animate-bounce'
+            />
+          </Link>
+        </div>
+        <div className='category group bg-[#4069FD] bg-opacity-60'>
+          <Link href={'/equipments'} className='categoryIner'>
+            <h2 className='categoryText'>기자재 대여</h2>
+            <Image
+              src={'https://i.imgur.com/qRynJ5O.png'}
+              alt='equipments'
+              width={250}
+              height={250}
+              unoptimized={true}
+              className='group-hover:animate-bounce'
+            />
+          </Link>
+        </div>
       </div>
     </div>
   );
