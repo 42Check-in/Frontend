@@ -24,7 +24,6 @@ export default function Header({ children }: HeaderProps): ReactElement {
           </div>
         </nav>
       </header>
-      <div className='pb-20' />
     </>
   );
 }

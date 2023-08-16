@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-body #__next {
-  height: 90vh;
+html,
+body,
+body > div:first-child,
+div#__next,
+div#__next > div {
+  height: 100%;
 }
