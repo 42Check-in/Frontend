@@ -10,7 +10,7 @@ export default function Login(): ReactElement {
     route.push('/');
   };
   return (
-    <div className='sp flex flex-col items-center justify-center space-x-10 space-y-10 lg:flex-row'>
+    <div className='flex flex-col items-center justify-center space-x-10 space-y-10 lg:flex-row'>
       <div className=' absolute left-40 top-40 -z-10 aspect-square h-60 w-60 rounded-full bg-yellow-400 bg-opacity-70 blur-[80px]' />
       <div className=' absolute left-80 top-80 -z-10 aspect-square h-80 w-80 rounded-full bg-blue-800 bg-opacity-70 blur-[80px]' />
       <div className='flex flex-col'>
