@@ -36,11 +36,11 @@ export default function Home(): ReactElement {
       <div className='mx-4 grid grid-cols-2 gap-x-10 gap-y-10 lg:h-2/5 lg:grid-cols-4'>
         {/* 회의실 */}
         <div className='category group bg-[#3983f2] bg-opacity-20'>
-          <Link href={'/conferences'} className='categoryIner'>
+          <Link href={'/conference-rooms'} className='categoryIner'>
             <h2 className='categoryText'>회의실</h2>
             <Image
               src={'https://i.imgur.com/BgCoX27.png'}
-              alt='conferences'
+              alt='conference-rooms'
               width={250}
               height={250}
               unoptimized={true}
