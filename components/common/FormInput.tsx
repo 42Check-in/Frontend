@@ -6,6 +6,7 @@ interface FormInputProps {
   disabled?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
+  span?: string;
   value?: string;
 }
 
@@ -15,19 +16,20 @@ export default function FormInput({
   disabled,
   onChange,
   placeholder,
+  span = 'full',
   value,
 }: FormInputProps): ReactElement {
   return (
-    <div>
-      <label htmlFor={title} className='block text-sm font-semibold leading-6 text-gray-900'>
+    <div className={`col-span-${span}`}>
+      <label htmlFor={title} className='block text-sm font-medium leading-6 text-gray-900'>
         {title}
       </label>
-      <div className='mt-2.5'>
+      <div className='mt-2'>
         <input
           type={type}
           name={title}
           id={title}
-          className='block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+          className='block w-full rounded-md border-0 px-3.5 py-2.5 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600'
           disabled={disabled}
           onChange={onChange}
           placeholder={placeholder}
