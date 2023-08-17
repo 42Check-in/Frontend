@@ -16,8 +16,8 @@ export default function FormTextArea({
   value,
 }: FormTextAreaProps): ReactElement {
   return (
-    <div className='sm:col-span-2'>
-      <label htmlFor={title} className='block text-sm font-semibold leading-6 text-gray-900'>
+    <div className='col-span-full'>
+      <label htmlFor={title} className='block text-sm font-medium leading-6 text-gray-900'>
         {title}
       </label>
       <div className='mt-2.5'>
