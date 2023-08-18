@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import type { Dispatch, FormEvent, ReactElement, SetStateAction } from 'react';
 
 import FormAgreement from '../common/FormAgreement';
 import FormInput from '../common/FormInput';
@@ -11,7 +11,15 @@ const EQUIPMENTS = ['맥북', '삼성 노트북', '아이패드', '기타'];
 const PERIODS = ['1개월', '3개월'];
 const PURPOSES = ['42 과제', '기타'];
 
-export default function EquimentsForm(): ReactElement {
+interface EquimentsFormProps {
+  setShowModal: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function EquimentsForm({ setShowModal }: EquimentsFormProps): ReactElement {
+  const handleFormSubmit = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    setShowModal(true);
+  };
   return (
     <FormWrapper>
       <div className='mx-auto max-w-2xl pb-5 text-gray-900'>
@@ -19,7 +27,7 @@ export default function EquimentsForm(): ReactElement {
           기자재 대여 신청
         </h2>
       </div>
-      <form action='#' method='POST' className='mx-auto my-10 max-w-xl'>
+      <form action='#' method='POST' onSubmit={handleFormSubmit} className='mx-auto my-10 max-w-xl'>
         <div className='grid grid-cols-2 gap-x-8 gap-y-6 pb-6'>
           <FormInput
             title='신청자 이름'

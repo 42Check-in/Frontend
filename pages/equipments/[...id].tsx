@@ -9,7 +9,7 @@ export default function Equipments(): ReactElement {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
-      <EquimentsForm />
+      <EquimentsForm setShowModal={setShowModal} />
       {showModal && (
         <ModalWrapper>
           <ModalText>

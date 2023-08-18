@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import type { Dispatch, FormEvent, ReactElement, SetStateAction } from 'react';
 
 import FormAgreement from '../common/FormAgreement';
 import FormInput from '../common/FormInput';
@@ -28,7 +28,15 @@ const RELATIONS = [
   '기타',
 ];
 
-export default function VisitorsForm(): ReactElement {
+interface VisitorsFormProps {
+  setShowModal: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function VisitorsForm({ setShowModal }: VisitorsFormProps): ReactElement {
+  const handleFormSubmit = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    setShowModal(true);
+  };
   return (
     <FormWrapper>
       <div className='mx-auto max-w-2xl pb-5 text-gray-900'>
@@ -45,7 +53,7 @@ export default function VisitorsForm(): ReactElement {
           조금은 불편하더라도 확실한 보안을 위한 절차이오니 이 점 참고해 주시기 바랍니다.
         </p>
       </div>
-      <form action='#' method='POST' className='mx-auto my-10 max-w-xl'>
+      <form onSubmit={handleFormSubmit} action='#' method='POST' className='mx-auto my-10 max-w-xl'>
         <div className='grid grid-cols-1 gap-y-6 pb-6'>
           <FormInput
             title='방문자 이름'
