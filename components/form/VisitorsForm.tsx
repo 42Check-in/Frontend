@@ -1,10 +1,10 @@
-import type { Dispatch, FormEvent, ReactElement, SetStateAction } from 'react';
+import type { Dispatch, ReactElement, SetStateAction } from 'react';
 
 import FormAgreement from '../common/FormAgreement';
 import FormContainer from '../common/FormContainer';
 import FormInput from '../common/FormInput';
 import FormSelect from '../common/FormSelect';
-import FormSubmitButton from '../common/FormSubmitButton';
+import FormWrapper from '../common/FormWrapper';
 
 const PLACES = [
   'B1F: 어셈블리',
@@ -33,10 +33,6 @@ interface VisitorsFormProps {
 }
 
 export default function VisitorsForm({ setShowModal }: VisitorsFormProps): ReactElement {
-  const handleFormSubmit = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-    setShowModal(true);
-  };
   return (
     <FormContainer>
       <div className='mx-auto max-w-2xl pb-5 text-gray-900'>
@@ -53,7 +49,7 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
           조금은 불편하더라도 확실한 보안을 위한 절차이오니 이 점 참고해 주시기 바랍니다.
         </p>
       </div>
-      <form onSubmit={handleFormSubmit} action='#' method='POST' className='mx-auto my-10 max-w-xl'>
+      <FormWrapper setShowModal={setShowModal}>
         <div className='grid grid-cols-1 gap-y-6 pb-6'>
           <FormInput
             title='방문자 이름'
@@ -82,8 +78,7 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
             <p>외부인에 의해 시설이 훼손된 경우 공동 책임이 따름을 확인했습니다.</p>
           </FormAgreement>
         </div>
-        <FormSubmitButton />
-      </form>
+      </FormWrapper>
     </FormContainer>
   );
 }

@@ -1,10 +1,10 @@
-import type { Dispatch, FormEvent, ReactElement, SetStateAction } from 'react';
+import type { Dispatch, ReactElement, SetStateAction } from 'react';
 
 import FormContainer from '../common/FormContainer';
 import FormInput from '../common/FormInput';
 import FormSelect from '../common/FormSelect';
-import FormSubmitButton from '../common/FormSubmitButton';
 import FormTextArea from '../common/FormTextArea';
+import FormWrapper from '../common/FormWrapper';
 
 const IS_VIDEO = ['희망', '희망하지 않음'];
 const LECTURES = [
@@ -27,10 +27,6 @@ interface PresentationsFormProps {
 }
 
 export default function PresentationsForm({ setShowModal }: PresentationsFormProps): ReactElement {
-  const handleFormSubmit = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-    setShowModal(true);
-  };
   return (
     <FormContainer>
       <div className='mx-auto max-w-2xl pb-5 text-gray-900'>
@@ -55,7 +51,7 @@ export default function PresentationsForm({ setShowModal }: PresentationsFormPro
           5. 만약 스케줄이 꽉 찼거나 관련 요청, 질문이 있다면 @42_holly에게 DM 요청해 주세요!
         </p>
       </div>
-      <form action='#' method='POST' onSubmit={handleFormSubmit} className='mx-auto my-10 max-w-xl'>
+      <FormWrapper setShowModal={setShowModal}>
         <div className='grid grid-cols-3 gap-x-8 gap-y-6 pb-10'>
           <FormInput
             title='신청자 이름'
@@ -80,8 +76,7 @@ export default function PresentationsForm({ setShowModal }: PresentationsFormPro
           <FormSelect title='강연 종류' contents={LECTURES} span='1' />
           <FormSelect title='영상 촬영' contents={IS_VIDEO} span='1' />
         </div>
-        <FormSubmitButton />
-      </form>
+      </FormWrapper>
     </FormContainer>
   );
 }

@@ -1,11 +1,11 @@
-import type { Dispatch, FormEvent, ReactElement, SetStateAction } from 'react';
+import type { Dispatch, ReactElement, SetStateAction } from 'react';
 
 import FormAgreement from '../common/FormAgreement';
 import FormContainer from '../common/FormContainer';
 import FormInput from '../common/FormInput';
 import FormSelect from '../common/FormSelect';
-import FormSubmitButton from '../common/FormSubmitButton';
 import FormTextArea from '../common/FormTextArea';
+import FormWrapper from '../common/FormWrapper';
 
 const EQUIPMENTS = ['맥북', '삼성 노트북', '아이패드', '기타'];
 const PERIODS = ['1개월', '3개월'];
@@ -16,10 +16,6 @@ interface EquipmentsFormProps {
 }
 
 export default function EquipmentsForm({ setShowModal }: EquipmentsFormProps): ReactElement {
-  const handleFormSubmit = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-    setShowModal(true);
-  };
   return (
     <FormContainer>
       <div className='mx-auto max-w-2xl pb-5 text-gray-900'>
@@ -27,7 +23,7 @@ export default function EquipmentsForm({ setShowModal }: EquipmentsFormProps): R
           기자재 대여 신청
         </h2>
       </div>
-      <form action='#' method='POST' onSubmit={handleFormSubmit} className='mx-auto my-10 max-w-xl'>
+      <FormWrapper setShowModal={setShowModal}>
         <div className='grid grid-cols-2 gap-x-8 gap-y-6 pb-6'>
           <FormInput
             title='신청자 이름'
@@ -55,8 +51,7 @@ export default function EquipmentsForm({ setShowModal }: EquipmentsFormProps): R
             대여한 물품을 파손시킬 경우 비용이 청구될 수 있음을 확인했습니다.
           </FormAgreement>
         </div>
-        <FormSubmitButton />
-      </form>
+      </FormWrapper>
     </FormContainer>
   );
 }
