@@ -54,21 +54,18 @@ export default function PresentationsForm(): ReactElement {
             type='text'
             onChange={() => {}}
             placeholder='실명을 알려 주세요. (예시: 이정재)'
-            span='3'
           />
           <FormInput
             title='수요지식회 제목'
             type='text'
             onChange={() => {}}
             placeholder='강연 제목을 입력해 주세요.'
-            span='3'
           />
           <FormInput
             title='수요지식회 주제'
             type='text'
             onChange={() => {}}
             placeholder='어떤 주제로 강연하시나요?'
-            span='3'
           />
           <FormTextArea title='상세 내용' onChange={() => {}} />
           <FormSelect title='소요 시간' contents={TIMES} span='1' />
