@@ -1,5 +1,6 @@
 import Btn from '@/components/common/Btn';
-import React from 'react';
+import Link from 'next/link';
+import React, { useState } from 'react';
 import type { ReactElement } from 'react';
 
 const LOCATIONS = ['개포', '서초'];
@@ -13,6 +14,14 @@ export default function RoomReservation(): ReactElement {
     day.setDate(today.getDate() + i);
     days.push(day);
   }
+  const [selectLocation, setSelectLocation] = useState('개포');
+  const [selectItem, setSelectItem] = useState('2F-1');
+  const onSelectLocation = (item: string): void => {
+    setSelectLocation(item)
+  }
+  const onSelectPlace = (item: string): void => {
+    setSelectItem(item)
+  }
   return (
     <div className='container mx-auto h-full p-10'>
       <div className='flex space-x-10 rounded-[30px] bg-[#EDEDED] p-10 shadow-xl md:flex-row'>
@@ -23,16 +32,17 @@ export default function RoomReservation(): ReactElement {
                 <Btn
                   key={location}
                   fontSize='base'
-                  onClick={() => {}}
+                  onClick={() => {onSelectLocation(location)}}
                   px='6'
                   py='2'
                   text={location}
+                  selectItem={selectLocation}
                 />
               ))}
             </div>
             <div className='flex flex-col items-start space-y-2 border-r-2 border-[#8B8B8B] px-3.5'>
               {PLACES.map((place) => (
-                <Btn key={place} fontSize='base' onClick={() => {}} px='6' py='2' text={place} />
+                <Btn key={place} fontSize='base' onClick={() => {onSelectPlace(place)}} px='6' py='2' text={place} selectItem={selectItem} />
               ))}
             </div>
           </div>
@@ -53,7 +63,7 @@ export default function RoomReservation(): ReactElement {
         <div className='w-full space-y-5 p-2 md:w-3/4'>
           <div className='mb-4 flex items-center justify-between'>
             <h1 className='text-2xl font-semibold'>회의실 예약</h1>
-            <button className='text-2xl'>📅</button>
+            <Link href={'/conference-rooms'}><button className='text-2xl'>📅</button></Link>
           </div>
           <div className='flex justify-between'>
             {days.map((day, index) => (
