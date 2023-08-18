@@ -22,7 +22,7 @@ export default function Sidebar(): ReactElement {
     <div className='fixed left-0 z-10 bg-white pt-20'>
       <div className='flex h-screen w-28 flex-col space-y-2.5 border-r border-[#909090] px-2 py-3.5'>
         <Menu href='/conference-rooms' text='회의실 예약' />
-        <Menu href='/visitors' text='외부인 방문' />
+        <Menu href='/visitors' text='외부인 초대' />
         <Menu href='/presentations' text='수요지식회' />
         <Menu href='/equipments' text='기자재 대여' />
       </div>
