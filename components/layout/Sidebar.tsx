@@ -19,7 +19,7 @@ function Menu({ href, text }: MenuProps): ReactElement {
 
 export default function Sidebar(): ReactElement {
   return (
-    <div className='fixed left-0 pt-20'>
+    <div className='fixed left-0 z-10 bg-white pt-20'>
       <div className='flex h-screen w-28 flex-col space-y-2.5 border-r border-[#909090] px-2 py-3.5'>
         <Menu href='/conference-rooms' text='회의실 예약' />
         <Menu href='/visitors' text='외부인 방문' />
