@@ -1,14 +1,14 @@
-import type { ReactElement } from 'react';
+import type { Dispatch, ReactElement, SetStateAction } from 'react';
 
 import Btn from '../common/Btn';
 
 const btnContent = [
   {
-    text: '회의실',
+    text: '회의실 예약',
     url: '',
   },
   {
-    text: '외부인 방문',
+    text: '외부인 초대',
     url: '',
   },
   {
@@ -21,7 +21,15 @@ const btnContent = [
   },
 ];
 
-export default function StatusBoard(): ReactElement {
+interface StatusBoardProps {
+  setSelectFormId: Dispatch<SetStateAction<number>>;
+  setCategory: Dispatch<SetStateAction<number>>;
+}
+
+export default function StatusBoard({
+  setSelectFormId,
+  setCategory,
+}: StatusBoardProps): ReactElement {
   return (
     <div className='m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border'>
       {/* 위에 버튼 4개있는 부분 */}
@@ -33,7 +41,12 @@ export default function StatusBoard(): ReactElement {
             className='mr-10 h-6 w-6 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500'
           />
           {btnContent.map((items, i) => (
-            <div key={i}>
+            <div
+              key={i}
+              onClick={() => {
+                setCategory(i);
+              }}
+            >
               <Btn fontSize='lg' onClick={() => {}} px='8' py='2 ' text={`${items.text}`} />
             </div>
           ))}
@@ -52,6 +65,9 @@ export default function StatusBoard(): ReactElement {
         {[1, 1, 11, 1, 1, 1, 11, 1, 1].map((item, i) => (
           <div
             key={i}
+            onClick={() => {
+              setSelectFormId(i);
+            }}
             className='mx-4 flex justify-between space-x-2 rounded-2xl border-2 px-6 py-8 text-xl shadow-xl transition duration-300 ease-in-out hover:bg-[#6AA6FF]'
           >
             <input
