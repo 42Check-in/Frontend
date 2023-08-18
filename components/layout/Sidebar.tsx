@@ -13,7 +13,7 @@ function Menu({ href, text }: MenuProps): ReactElement {
   return (
     <Link
       href={href}
-      className={cls(route.pathname === href ? 'bg-[#6AA6FF]' : '','rounded-[20px] bg-[#6A70FF] px-1 py-3.5 text-center text-sm font-bold text-white')}
+      className={cls(route.pathname === href ? 'bg-[#6AA6FF]' : '','rounded-[20px] bg-[#6A70FF] px-1 py-3.5 text-center text-sm font-bold text-white hover:bg-[#6AA6FF]')}
     >
       {text}
     </Link>
