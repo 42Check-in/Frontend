@@ -37,7 +37,7 @@ export default function Home(): ReactElement {
         {/* 회의실 */}
         <div className='category group bg-[#3983f2] bg-opacity-20'>
           <Link href={'/conference-rooms'} className='categoryIner'>
-            <h2 className='categoryText'>회의실</h2>
+            <h2 className='categoryText'>회의실 예약</h2>
             <Image
               src={'https://i.imgur.com/BgCoX27.png'}
               alt='conference-rooms'
@@ -50,7 +50,7 @@ export default function Home(): ReactElement {
         </div>
         <div className='category group bg-[#4069FD] bg-opacity-60'>
           <Link href={'/visitors'} className='categoryIner'>
-            <h2 className='categoryText'>외부인 방문</h2>
+            <h2 className='categoryText'>외부인 초대</h2>
             <Image
               src={'https://i.imgur.com/bZ095Nd.png'}
               alt='visitors'
