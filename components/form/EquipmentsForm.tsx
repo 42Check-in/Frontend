@@ -1,11 +1,11 @@
 import type { Dispatch, FormEvent, ReactElement, SetStateAction } from 'react';
 
 import FormAgreement from '../common/FormAgreement';
+import FormContainer from '../common/FormContainer';
 import FormInput from '../common/FormInput';
 import FormSelect from '../common/FormSelect';
 import FormSubmitButton from '../common/FormSubmitButton';
 import FormTextArea from '../common/FormTextArea';
-import FormWrapper from '../common/FormWrapper';
 
 const EQUIPMENTS = ['맥북', '삼성 노트북', '아이패드', '기타'];
 const PERIODS = ['1개월', '3개월'];
@@ -21,7 +21,7 @@ export default function EquipmentsForm({ setShowModal }: EquipmentsFormProps): R
     setShowModal(true);
   };
   return (
-    <FormWrapper>
+    <FormContainer>
       <div className='mx-auto max-w-2xl pb-5 text-gray-900'>
         <h2 className='border-b border-[#6A70FF] pb-3 text-3xl font-bold tracking-tight text-[#6A70FF]'>
           기자재 대여 신청
@@ -57,6 +57,6 @@ export default function EquipmentsForm({ setShowModal }: EquipmentsFormProps): R
         </div>
         <FormSubmitButton />
       </form>
-    </FormWrapper>
+    </FormContainer>
   );
 }

@@ -1,10 +1,10 @@
 import type { Dispatch, FormEvent, ReactElement, SetStateAction } from 'react';
 
 import FormAgreement from '../common/FormAgreement';
+import FormContainer from '../common/FormContainer';
 import FormInput from '../common/FormInput';
 import FormSelect from '../common/FormSelect';
 import FormSubmitButton from '../common/FormSubmitButton';
-import FormWrapper from '../common/FormWrapper';
 
 const PLACES = [
   'B1F: 어셈블리',
@@ -38,7 +38,7 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
     setShowModal(true);
   };
   return (
-    <FormWrapper>
+    <FormContainer>
       <div className='mx-auto max-w-2xl pb-5 text-gray-900'>
         <h2 className='border-b border-[#6A70FF] pb-3 text-3xl font-bold tracking-tight text-[#6A70FF]'>
           외부인 초대 사전 승인 신청
@@ -84,6 +84,6 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
         </div>
         <FormSubmitButton />
       </form>
-    </FormWrapper>
+    </FormContainer>
   );
 }

@@ -1,10 +1,10 @@
 import type { Dispatch, FormEvent, ReactElement, SetStateAction } from 'react';
 
+import FormContainer from '../common/FormContainer';
 import FormInput from '../common/FormInput';
 import FormSelect from '../common/FormSelect';
 import FormSubmitButton from '../common/FormSubmitButton';
 import FormTextArea from '../common/FormTextArea';
-import FormWrapper from '../common/FormWrapper';
 
 const IS_VIDEO = ['희망', '희망하지 않음'];
 const LECTURES = [
@@ -32,7 +32,7 @@ export default function PresentationsForm({ setShowModal }: PresentationsFormPro
     setShowModal(true);
   };
   return (
-    <FormWrapper>
+    <FormContainer>
       <div className='mx-auto max-w-2xl pb-5 text-gray-900'>
         <h2 className='border-b border-[#6A70FF] pb-3 text-3xl font-bold tracking-tight text-[#6A70FF]'>
           수요지식회 신청
@@ -82,6 +82,6 @@ export default function PresentationsForm({ setShowModal }: PresentationsFormPro
         </div>
         <FormSubmitButton />
       </form>
-    </FormWrapper>
+    </FormContainer>
   );
 }

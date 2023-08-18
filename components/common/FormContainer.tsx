@@ -1,10 +1,10 @@
 import type { ReactElement, ReactNode } from 'react';
 
-interface FormWrapperProps {
+interface FormContainerProps {
   children: ReactNode;
 }
 
-export default function FormWrapper({ children }: FormWrapperProps): ReactElement {
+export default function FormContainer({ children }: FormContainerProps): ReactElement {
   return (
     <div className='isolate bg-white px-8 py-20'>
       <div
