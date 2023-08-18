@@ -7,9 +7,9 @@ import FormSubmitButton from '../common/FormSubmitButton';
 import FormTextArea from '../common/FormTextArea';
 import FormWrapper from '../common/FormWrapper';
 
-const EQUIPMENTS = ['맥북', '삼성 노트북', '아이패드'];
+const EQUIPMENTS = ['맥북', '삼성 노트북', '아이패드', '기타'];
 const PERIODS = ['1개월', '3개월'];
-const PURPOSES = ['42 과제'];
+const PURPOSES = ['42 과제', '기타'];
 
 export default function EquimentsForm(): ReactElement {
   return (
