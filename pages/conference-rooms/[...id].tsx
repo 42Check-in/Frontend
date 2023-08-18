@@ -13,9 +13,13 @@ export default function RoomReservation(): ReactElement {
     day.setDate(today.getDate() + i);
     days.push(day);
   }
-  const [selectItem, setSelectItem] = useState('개포');
-  const onSelect = (location: string): void => {
-    setSelectItem(location)
+  const [selectLocation, setSelectLocation] = useState('개포');
+  const [selectItem, setSelectItem] = useState('2F-1');
+  const onSelectLocation = (item: string): void => {
+    setSelectLocation(item)
+  }
+  const onSelectPlace = (item: string): void => {
+    setSelectItem(item)
   }
   return (
     <div className='container mx-auto h-full p-10'>
@@ -27,17 +31,17 @@ export default function RoomReservation(): ReactElement {
                 <Btn
                   key={location}
                   fontSize='base'
-                  onClick={() => {onSelect(location)}}
+                  onClick={() => {onSelectLocation(location)}}
                   px='6'
                   py='2'
                   text={location}
-                  selectItem={selectItem}
+                  selectItem={selectLocation}
                 />
               ))}
             </div>
             <div className='flex flex-col items-start space-y-2 border-r-2 border-[#8B8B8B] px-3.5'>
               {PLACES.map((place) => (
-                <Btn key={place} fontSize='base' onClick={() => {}} px='6' py='2' text={place} />
+                <Btn key={place} fontSize='base' onClick={() => {onSelectPlace(place)}} px='6' py='2' text={place} selectItem={selectItem} />
               ))}
             </div>
           </div>
