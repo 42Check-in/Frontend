@@ -11,11 +11,11 @@ const EQUIPMENTS = ['맥북', '삼성 노트북', '아이패드', '기타'];
 const PERIODS = ['1개월', '3개월'];
 const PURPOSES = ['42 과제', '기타'];
 
-interface EquimentsFormProps {
+interface EquipmentsFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function EquimentsForm({ setShowModal }: EquimentsFormProps): ReactElement {
+export default function EquipmentsForm({ setShowModal }: EquipmentsFormProps): ReactElement {
   const handleFormSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     setShowModal(true);
