@@ -1,5 +1,5 @@
 import Btn from '@/components/common/Btn';
-import React from 'react';
+import React, { useState } from 'react';
 import type { ReactElement } from 'react';
 
 const LOCATIONS = ['개포', '서초'];
@@ -13,6 +13,10 @@ export default function RoomReservation(): ReactElement {
     day.setDate(today.getDate() + i);
     days.push(day);
   }
+  const [selectItem, setSelectItem] = useState('개포');
+  const onSelect = (location: string): void => {
+    setSelectItem(location)
+  }
   return (
     <div className='container mx-auto h-full p-10'>
       <div className='flex space-x-10 rounded-[30px] bg-[#EDEDED] p-10 shadow-xl md:flex-row'>
@@ -23,10 +27,11 @@ export default function RoomReservation(): ReactElement {
                 <Btn
                   key={location}
                   fontSize='base'
-                  onClick={() => {}}
+                  onClick={() => {onSelect(location)}}
                   px='6'
                   py='2'
                   text={location}
+                  selectItem={selectItem}
                 />
               ))}
             </div>
