@@ -1,4 +1,5 @@
 import Btn from '@/components/common/Btn';
+import Link from 'next/link';
 import React, { useState } from 'react';
 import type { ReactElement } from 'react';
 
@@ -62,7 +63,7 @@ export default function RoomReservation(): ReactElement {
         <div className='w-full space-y-5 p-2 md:w-3/4'>
           <div className='mb-4 flex items-center justify-between'>
             <h1 className='text-2xl font-semibold'>회의실 예약</h1>
-            <button className='text-2xl'>📅</button>
+            <Link href={'/conference-rooms'}><button className='text-2xl'>📅</button></Link>
           </div>
           <div className='flex justify-between'>
             {days.map((day, index) => (
