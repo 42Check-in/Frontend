@@ -26,7 +26,7 @@ export default function Calendar(): ReactElement {
   }, [currentYear]);
 
   return (
-    <div className='mx-4 mt-16 bg-white p-4 dark:bg-gray-700 md:mx-auto md:w-96 md:rounded md:shadow-lg'>
+    <div className='m-16 rounded bg-white p-4 shadow-lg dark:bg-gray-700'>
       <div className='w-full rounded'>
         <div className='mb-4 flex items-center justify-between'>
           <div className='text-left text-xl font-bold text-black dark:text-white'>
