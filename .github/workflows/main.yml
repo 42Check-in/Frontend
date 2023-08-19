@@ -2,7 +2,7 @@ name: git push into another repo to deploy to vercel
 
 on:
   push:
-    branches: [main]
+    branches: [develop]
 
 jobs:
   build:
@@ -18,11 +18,11 @@ jobs:
         id: push_directory
         uses: cpina/github-action-push-to-another-repository@main
         env:
-          API_TOKEN_GITHUB: ${{ secrets.AUTO_DEPLOYMENT }}
+          API_TOKEN_GITHUB: ${{ secrets.AUTO_ }}
         with:
           source-directory: 'output'
           destination-github-username: jjongs2
-          destination-repository-name: 42Check-in
+          destination-repository-name: 42check-in
           user-email: ${{ secrets.OFFICIAL_ACCOUNT_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
