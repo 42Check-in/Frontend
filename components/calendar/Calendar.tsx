@@ -14,6 +14,10 @@ export default function Calendar(): ReactElement {
   const [firstDays, setFirstDays] = useState<number[]>([]);
 
   useEffect(() => {
+    prevMonth.current = currentMonth;
+  }, [currentMonth]);
+
+  useEffect(() => {
     const days = [];
     for (let i = 1; i <= 12; i++) {
       days.push(new Date(`${currentYear}/${i}/1`).getDay());
@@ -26,7 +30,7 @@ export default function Calendar(): ReactElement {
       <div className='w-full rounded'>
         <div className='mb-4 flex items-center justify-between'>
           <div className='text-left text-xl font-bold text-black dark:text-white'>
-            {` ${currentYear}년 ${currentMonth}월`}
+            {` ${currentYear}년 ${currentMonth + 1}월`}
           </div>
           <div className='flex space-x-4'>
             <button
