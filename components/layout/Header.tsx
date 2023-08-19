@@ -2,18 +2,35 @@ import { darkModeIcon, noticeIcon, userIcon } from '@/assets/icons';
 import { Logo } from '@/assets/images';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { type ReactElement, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import type { ReactElement } from 'react';
 
 interface HeaderProps {
   children?: React.ReactNode;
 }
 
 export default function Header({ children }: HeaderProps): ReactElement {
-  const [showNotice, setShowNotice] = useState(0);
   const route = useRouter();
+
+  const noticeRef = useRef<HTMLDivElement>(null);
+  const [showNotice, setShowNotice] = useState(0);
+
   useEffect(() => {
     setShowNotice(0);
   }, [route.pathname]);
+
+  useEffect(() => {
+    function handleOutsideClick(event: any): void {
+      if (showNotice > 0 && noticeRef.current?.contains(event.target as Node) === false) {
+        setShowNotice(0);
+      }
+    }
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [showNotice]);
+
   return (
     <>
       <header className='fixed z-50 w-screen bg-[#4069FD]'>
@@ -35,7 +52,10 @@ export default function Header({ children }: HeaderProps): ReactElement {
             >
               {noticeIcon}
               {showNotice === 1 && (
-                <div className='absolute right-10 top-16 m-2 rounded-xl bg-[#e8e8e8] px-4 shadow-xl'>
+                <div
+                  ref={noticeRef}
+                  className='absolute right-10 top-16 m-2 rounded-xl bg-[#e8e8e8] px-4 shadow-xl'
+                >
                   <p className='mb-2 border-b-2 border-gray-400 pt-2 text-left font-semibold text-gray-500'>
                     NOTIFICATIONS
                   </p>
@@ -64,7 +84,10 @@ export default function Header({ children }: HeaderProps): ReactElement {
             >
               {userIcon}
               {showNotice === 2 && (
-                <div className='absolute right-6 top-16 m-2 flex flex-col rounded-xl bg-[#e8e8e8] px-4 shadow-xl'>
+                <div
+                  ref={noticeRef}
+                  className='absolute right-6 top-16 m-2 flex flex-col rounded-xl bg-[#e8e8e8] px-4 shadow-xl'
+                >
                   <Link
                     href={'/my-check-in'}
                     className='mt-2 rounded-lg p-4 font-semibold text-gray-600 transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
