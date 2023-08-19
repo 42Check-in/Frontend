@@ -5,9 +5,9 @@ import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 
 export default function Login(): ReactElement {
-  const route = useRouter();
+  const router = useRouter();
   const onSignIn = (): void => {
-    route.push('/');
+    router.push('/');
   };
   return (
     <div className='flex flex-col items-center justify-center space-x-10 space-y-10 lg:flex-row'>

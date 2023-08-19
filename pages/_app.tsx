@@ -10,7 +10,7 @@ import '../styles/globals.css';
 import Login from './login';
 
 export default function MyApp({ Component, pageProps }: AppProps): ReactElement {
-  // const route = useRouter();
+  // const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   // 쿠키 또는 세션 검사하고
@@ -45,7 +45,7 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
   //           params: { code: code },
   //         })
   //         .then(() => setLoading(false))
-  //         .then(() => route.push('/'));
+  //         .then(() => router.push('/'));
   //     } catch (error) {
   //       console.error(error);
   //     }

@@ -9,12 +9,12 @@ interface MenuProps {
 }
 
 function Menu({ href, text }: MenuProps): ReactElement {
-  const route = useRouter();
+  const router = useRouter();
   return (
     <Link
       href={href}
       className={cls(
-        route.asPath === href ? 'bg-[#6AA6FF]' : '',
+        router.asPath === href ? 'bg-[#6AA6FF]' : '',
         'rounded-[20px] bg-[#6A70FF] px-1 py-3.5 text-center text-sm font-bold text-white hover:bg-[#6AA6FF]',
       )}
     >
