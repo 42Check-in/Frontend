@@ -11,7 +11,7 @@ const WEEKS = [0, 1, 2, 3, 4, 5];
 export default function Calendar(): ReactElement {
   const callApi = useCallApi();
   const prevMonth = useRef<number>();
-  const { pathname } = useRouter();
+  const { asPath } = useRouter();
   const [unavailableDates, setUnavailableDates] = useState(0);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
@@ -25,7 +25,7 @@ export default function Calendar(): ReactElement {
       const { data } = await callApi(config);
       setUnavailableDates(data);
     }
-    if (pathname.startsWith('/conference-rooms')) {
+    if (asPath.startsWith('/conference-rooms')) {
       void fetchData();
     }
     prevMonth.current = currentMonth;

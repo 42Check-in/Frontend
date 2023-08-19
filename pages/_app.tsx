@@ -51,7 +51,7 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
   //     }
   //   };
 
-  //   if (url.pathname === '/auth/callback') {
+  //   if (url.asPath === '/auth/callback') {
   //     void postData();
   //     setLoading(true);
   //   }

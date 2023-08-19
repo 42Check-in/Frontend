@@ -10,8 +10,8 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps): ReactElement {
-  const { pathname } = useRouter();
-  const hasSidebar = pathname !== '/';
+  const { asPath } = useRouter();
+  const hasSidebar = asPath !== '/';
   return (
     <>
       <Header />

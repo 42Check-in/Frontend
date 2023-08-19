@@ -17,7 +17,7 @@ export default function Header({ children }: HeaderProps): ReactElement {
 
   useEffect(() => {
     setShowNotice(0);
-  }, [route.pathname]);
+  }, [route.asPath]);
 
   useEffect(() => {
     function handleOutsideClick(event: any): void {
