@@ -1,27 +1,46 @@
 import Btn from '@/components/common/Btn';
+import useCallApi from '@/utils/useCallApi';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import type { ReactElement } from 'react';
 
 const LOCATIONS = ['개포', '서초'];
 const PLACES = ['2F-1', '2F-2', '3F-1', '4F-1', '4F-2'];
 
 export default function RoomReservation(): ReactElement {
-  const today = new Date();
+  const callApi = useCallApi();
+  const { asPath } = useRouter();
+  const [selectLocation, setSelectLocation] = useState(LOCATIONS[0]);
+  const [selectItem, setSelectItem] = useState(PLACES[0]);
+
   const days = [];
+  const today = new Date();
   for (let i = 0; i < 7; ++i) {
     const day = new Date();
     day.setDate(today.getDate() + i);
     days.push(day);
   }
-  const [selectLocation, setSelectLocation] = useState('개포');
-  const [selectItem, setSelectItem] = useState('2F-1');
+
   const onSelectLocation = (item: string): void => {
-    setSelectLocation(item)
-  }
+    setSelectLocation(item);
+  };
+
   const onSelectPlace = (item: string): void => {
-    setSelectItem(item)
-  }
+    setSelectItem(item);
+  };
+
+  useEffect(() => {
+    async function fetchData(): Promise<void> {
+      const config = {
+        url: asPath.replace('/conference-rooms/', '/conference-rooms/place-time/'),
+      };
+      const { data } = await callApi(config);
+      // setData(data);
+    }
+    fetchData();
+  }, []);
+
   return (
     <div className='container mx-auto h-full p-10'>
       <div className='flex space-x-10 rounded-[30px] bg-[#EDEDED] p-10 shadow-xl md:flex-row'>
@@ -32,7 +51,9 @@ export default function RoomReservation(): ReactElement {
                 <Btn
                   key={location}
                   fontSize='base'
-                  onClick={() => {onSelectLocation(location)}}
+                  onClick={() => {
+                    onSelectLocation(location);
+                  }}
                   px='6'
                   py='2'
                   text={location}
@@ -42,7 +63,17 @@ export default function RoomReservation(): ReactElement {
             </div>
             <div className='flex flex-col items-start space-y-2 border-r-2 border-[#8B8B8B] px-3.5'>
               {PLACES.map((place) => (
-                <Btn key={place} fontSize='base' onClick={() => {onSelectPlace(place)}} px='6' py='2' text={place} selectItem={selectItem} />
+                <Btn
+                  key={place}
+                  fontSize='base'
+                  onClick={() => {
+                    onSelectPlace(place);
+                  }}
+                  px='6'
+                  py='2'
+                  text={place}
+                  selectItem={selectItem}
+                />
               ))}
             </div>
           </div>
@@ -63,7 +94,9 @@ export default function RoomReservation(): ReactElement {
         <div className='w-full space-y-5 p-2 md:w-3/4'>
           <div className='mb-4 flex items-center justify-between'>
             <h1 className='text-2xl font-semibold'>회의실 예약</h1>
-            <Link href={'/conference-rooms'}><button className='text-2xl'>📅</button></Link>
+            <Link href={'/conference-rooms'}>
+              <button className='text-2xl'>📅</button>
+            </Link>
           </div>
           <div className='flex justify-between'>
             {days.map((day, index) => (
