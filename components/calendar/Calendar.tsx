@@ -89,8 +89,8 @@ export default function Calendar(): ReactElement {
                     firstDay={firstDays[currentMonth]}
                     lastDay={new Date(currentYear, currentMonth + 1, 0).getDate()}
                     row={week}
-                    currentMonth={currentMonth}
-                    currentYear={currentYear}
+                    month={currentMonth}
+                    year={currentYear}
                   />
                 </tr>
               ))}
