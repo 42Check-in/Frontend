@@ -10,14 +10,14 @@ interface HeaderProps {
 }
 
 export default function Header({ children }: HeaderProps): ReactElement {
-  const route = useRouter();
+  const router = useRouter();
 
   const noticeRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
 
   useEffect(() => {
     setShowNotice(0);
-  }, [route.pathname]);
+  }, [router.asPath]);
 
   useEffect(() => {
     function handleOutsideClick(event: any): void {
@@ -38,7 +38,7 @@ export default function Header({ children }: HeaderProps): ReactElement {
           <button
             className='flex pb-3'
             onClick={() => {
-              route.push('/');
+              router.push('/');
             }}
           >
             {Logo}

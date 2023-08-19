@@ -19,11 +19,11 @@ interface CalendarRowProps {
 }
 
 function CalendarDate({ date, month, year, isToday = false }: CalendarDateProps): ReactElement {
-  const { pathname } = useRouter();
+  const { asPath } = useRouter();
   return (
     <td className='relative px-2 py-3 text-center text-gray-800 hover:text-blue-500 dark:text-gray-100 md:px-3'>
       <Link
-        href={`${pathname}/${year}-${month}-${date}`}
+        href={`${asPath}/${year}-${month}-${date}`}
         className={isToday ? 'rounded-full border-2 border-green-400 p-1' : ''}
       >
         {date}

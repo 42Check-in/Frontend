@@ -1,3 +1,5 @@
+import useCallApi from '@/utils/useCallApi';
+import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
 
@@ -7,13 +9,25 @@ const DAYS = ['일', '월', '화', '수', '목', '금', '토'];
 const WEEKS = [0, 1, 2, 3, 4, 5];
 
 export default function Calendar(): ReactElement {
+  const callApi = useCallApi();
   const prevMonth = useRef<number>();
-
+  const { asPath } = useRouter();
+  const [unavailableDates, setUnavailableDates] = useState(0);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [firstDays, setFirstDays] = useState<number[]>([]);
 
   useEffect(() => {
+    async function fetchData(): Promise<void> {
+      const config = {
+        url: `/conference-rooms/calendar/${currentYear}/${currentMonth}`,
+      };
+      const { data } = await callApi(config);
+      setUnavailableDates(data);
+    }
+    if (asPath.startsWith('/conference-rooms')) {
+      void fetchData();
+    }
     prevMonth.current = currentMonth;
   }, [currentMonth]);
 
