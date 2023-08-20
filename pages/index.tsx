@@ -12,7 +12,6 @@ export default function Home(): ReactElement {
           alt='calendarImg'
           width={900}
           height={900}
-          unoptimized={true}
           className=' fixed -bottom-[13%] -left-[200px]'
         />
         <Image
@@ -20,7 +19,6 @@ export default function Home(): ReactElement {
           alt='checkLintImg'
           width={300}
           height={300}
-          unoptimized={true}
           className=' fixed left-1/2 top-[90px]'
         />
         <Image
@@ -28,7 +26,6 @@ export default function Home(): ReactElement {
           alt='sttingManImg'
           width={900}
           height={900}
-          unoptimized={true}
           className=' fixed -right-40 bottom-0'
         />
       </div>
@@ -43,7 +40,6 @@ export default function Home(): ReactElement {
               alt='conference-rooms'
               width={250}
               height={250}
-              unoptimized={true}
               className='group-hover:animate-bounce'
             />
           </Link>
@@ -56,7 +52,6 @@ export default function Home(): ReactElement {
               alt='visitors'
               width={400}
               height={400}
-              unoptimized={true}
               className='relative -bottom-[120px] group-hover:animate-bounce'
             />
           </Link>
@@ -69,7 +64,6 @@ export default function Home(): ReactElement {
               alt='presentations'
               width={200}
               height={100}
-              unoptimized={true}
               className='relative -bottom-[120px] group-hover:animate-bounce'
             />
           </Link>
@@ -82,7 +76,6 @@ export default function Home(): ReactElement {
               alt='equipments'
               width={250}
               height={250}
-              unoptimized={true}
               className='group-hover:animate-bounce'
             />
           </Link>

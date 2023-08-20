@@ -1,19 +1,35 @@
 import { darkModeIcon, noticeIcon, userIcon } from '@/assets/icons';
 import { Logo } from '@/assets/images';
+import useCallApi from '@/utils/useCallApi';
+import axios from 'axios';
+import type {
+  GetServerSideProps,
+  GetServerSidePropsContext,
+  InferGetServerSidePropsType,
+} from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
 
-interface HeaderProps {
-  children?: React.ReactNode;
+interface Data {
+  category: number;
+  formId: number;
+  date: string;
+  checkNotice: boolean;
 }
 
-export default function Header({ children }: HeaderProps): ReactElement {
-  const router = useRouter();
+interface PageProps {
+  data: Data[];
+}
 
+export default function Header({
+  data,
+}: InferGetServerSidePropsType<GetServerSideProps>): ReactElement {
+  const router = useRouter();
   const noticeRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
+  const callApi = useCallApi();
 
   useEffect(() => {
     setShowNotice(0);
@@ -48,6 +64,11 @@ export default function Header({ children }: HeaderProps): ReactElement {
             <button
               onClick={() => {
                 showNotice === 2 ? setShowNotice(1) : setShowNotice(showNotice ^ 1);
+                const config = {
+                  url: `${process.env.NEXT_PUBLIC_DOMAIN as string}/notice`,
+                  method: 'POST',
+                };
+                void callApi(config);
               }}
             >
               {noticeIcon}
@@ -60,22 +81,25 @@ export default function Header({ children }: HeaderProps): ReactElement {
                     NOTIFICATIONS
                   </p>
                   <div className='mb-4 space-y-2'>
-                    {[1, 1, 1].map((item, i) => (
+                    {data.map((item) => (
                       <div
-                        key={i}
+                        key={item.formId}
                         className='group flex h-16 w-[280px] items-center justify-between rounded-lg bg-[#C8DCFC] px-2 shadow-md transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
                       >
                         <span className=' text-base font-semibold text-gray-700 group-hover:text-white'>
-                          수요지식회 신청이 수락되었습니다.
+                          {item.category} 신청이 수락되었습니다.
                         </span>
                         <span className=' align-top text-sm text-gray-500  group-hover:text-white'>
-                          Today
+                          {item.date}
                         </span>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
+              <div className=' absolute right-[102px] top-2 flex aspect-square h-8 w-8 items-center justify-center rounded-full bg-slate-300 text-white'>
+                {Object.keys(data).length}
+              </div>
             </button>
             <button
               onClick={() => {
@@ -108,4 +132,15 @@ export default function Header({ children }: HeaderProps): ReactElement {
       </header>
     </>
   );
+}
+
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<{ props: PageProps }> {
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_DOMAIN as string}/notice`);
+  return {
+    props: {
+      data,
+    },
+  };
 }
