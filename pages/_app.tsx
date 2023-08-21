@@ -2,12 +2,11 @@ import Loading from '@/components/Loading';
 import Layout from '@/components/layout/Layout';
 import { type AppProps } from 'next/app';
 import Head from 'next/head';
-// import axios from 'axios';
 import { Router } from 'next/router';
-import React, { type ReactElement, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import type { ReactElement } from 'react';
 
 import '../styles/globals.css';
-import Login from './login';
 
 export default function MyApp({ Component, pageProps }: AppProps): ReactElement {
   // const router = useRouter();
@@ -34,28 +33,6 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
   //   };
   // }, []);
 
-  // useEffect(() => {
-  //   const url = new URL(window.location.href);
-
-  //   const postData = async () => {
-  //     const code = url.searchParams.get('code');
-  //     try {
-  //       await axios
-  //         .post('/api/auth/42login', null, {
-  //           params: { code: code },
-  //         })
-  //         .then(() => setLoading(false))
-  //         .then(() => router.push('/'));
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   if (url.asPath === '/auth/callback') {
-  //     void postData();
-  //     setLoading(true);
-  //   }
-  // });
   const login = false;
   return (
     <>
