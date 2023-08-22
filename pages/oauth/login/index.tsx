@@ -12,7 +12,7 @@ export default function Login(): ReactElement {
       const url = new URL(window.location.href);
       const code = url.searchParams.get('code');
       const { data } = await apiController.get('/oauth/login', { params: { code } });
-      console.log('data', data);
+      localStorage.setItem('token', data);
       await router.push('/');
     };
     void fetchData();
