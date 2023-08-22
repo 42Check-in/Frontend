@@ -30,6 +30,7 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
   }, [route.asPath, route.isReady]);
 
   const onSubmit = async (data: any): Promise<void> => {
+    console.log(data);
     const config = {
       url: `/${category}/form`,
       methods: 'POST',
@@ -43,7 +44,7 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
       <form
         action='#'
         method='POST'
-        // onSubmit={methods.handleSubmit(onSubmit)}
+        onSubmit={methods.handleSubmit(onSubmit)}
         className='mx-auto my-10 max-w-xl'
       >
         {children}
