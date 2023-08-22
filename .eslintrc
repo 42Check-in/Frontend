@@ -27,6 +27,14 @@
   },
   "plugins": ["react"],
   "rules": {
+    "@typescript-eslint/no-misused-promises": [
+      2,
+      {
+        "checksVoidReturn": {
+          "attributes": false
+        }
+      }
+    ],
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off"
   },
