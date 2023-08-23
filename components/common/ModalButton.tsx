@@ -13,7 +13,7 @@ export default function ModalButton({ text }: ModalButtonProps): ReactElement {
     } else if (text === '신규') {
       await route.push('/equipments/new');
     } else if (text === '연장') {
-      await route.push('/equipments/extend');
+      await route.push('/equipments/extension');
     }
   };
   return (
