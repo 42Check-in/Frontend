@@ -1,12 +1,7 @@
 import { darkModeIcon, noticeIcon, userIcon } from '@/assets/icons';
 import { Logo } from '@/assets/images';
 import apiController from '@/utils/apiController';
-import axios from 'axios';
-import type {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from 'next';
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
@@ -94,7 +89,7 @@ export default function Header({
                 </div>
               )}
               <div className=' absolute right-[102px] top-2 flex aspect-square h-8 w-8 items-center justify-center rounded-full bg-slate-300 text-white'>
-                {/* {Object.keys(data).length} */}
+                {noticeInfo.length}
               </div>
             </button>
             <button
