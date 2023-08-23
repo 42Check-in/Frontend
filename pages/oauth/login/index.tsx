@@ -24,10 +24,7 @@ export default function Login(): ReactElement {
         params: { code },
       };
       const { data } = await apiController(config);
-      const { accessToken, refreshToken } = data;
-      const jwtPayload = jwt_decode<JwtPayload>(accessToken);
-      localStorage.setItem('jwtPayload', JSON.stringify(jwtPayload));
-      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('token', data);
       await router.push('/');
     };
     void fetchData();
