@@ -8,6 +8,8 @@ const apiController = axios.create({
 apiController.interceptors.request.use(
   function (config) {
     // 요청이 전달되기 전에 작업 수행
+    const { headers } = config;
+    headers.Authorization = `Bearer ${localStorage.getItem('token') as string}`;
     return config;
   },
   async function (error) {
