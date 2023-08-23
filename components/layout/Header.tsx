@@ -19,11 +19,10 @@ interface Data {
   checkNotice: boolean;
 }
 
-interface PageProps {
-  data: Data[];
-}
-
-export default function Header(): ReactElement {
+export default function Header({
+  data,
+}: InferGetServerSidePropsType<GetServerSideProps>): ReactElement {
+  const { noticeInfo } = data;
   const router = useRouter();
   const noticeRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
@@ -50,8 +49,8 @@ export default function Header(): ReactElement {
         <nav className='flex items-center justify-between px-10'>
           <button
             className='flex pb-3'
-            onClick={() => {
-              router.push('/');
+            onClick={async () => {
+              await router.push('/');
             }}
           >
             {Logo}
@@ -78,7 +77,7 @@ export default function Header(): ReactElement {
                     NOTIFICATIONS
                   </p>
                   <div className='mb-4 space-y-2'>
-                    {/* {data.map((item: Data) => (
+                    {noticeInfo.map((item: Data) => (
                       <div
                         key={item.formId}
                         className='group flex h-16 w-[280px] items-center justify-between rounded-lg bg-[#C8DCFC] px-2 shadow-md transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white'
@@ -90,7 +89,7 @@ export default function Header(): ReactElement {
                           {item.date}
                         </span>
                       </div>
-                    ))} */}
+                    ))}
                   </div>
                 </div>
               )}
@@ -140,13 +139,15 @@ export default function Header(): ReactElement {
   );
 }
 
-export async function getServerSideProps(
-  context: GetServerSidePropsContext,
-): Promise<{ props: PageProps }> {
-  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_IP as string}/notice`);
+export const getServerSideProps: GetServerSideProps = async () => {
+  const config = {
+    url: `${process.env.NEXT_PUBLIC_IP as string}/notice`,
+    method: 'GET',
+  };
+  const { data } = await apiController(config);
   return {
     props: {
       data,
     },
   };
-}
+};
