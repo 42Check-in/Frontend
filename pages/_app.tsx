@@ -36,9 +36,8 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
   // }, []);
 
   useEffect(() => {
-    localStorage.setItem('token', '');
-    const token = localStorage.getItem('token');
-    if (token === null) {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken === null) {
       void router.push('/login');
       return;
     }

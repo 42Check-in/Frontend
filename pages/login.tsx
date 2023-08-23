@@ -8,8 +8,8 @@ export default function Login(): ReactElement {
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token !== null) {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken !== null) {
       void router.push('/');
     }
   }, [router]);
