@@ -1,4 +1,4 @@
-import { calenderIcon } from '@/assets/icons';
+import { calendarIcon } from '@/assets/icons';
 import Btn from '@/components/common/Btn';
 import apiController from '@/utils/apiController';
 import formatDate from '@/utils/formatDate';
@@ -52,7 +52,7 @@ export default function RoomReservation(): ReactElement {
           <div />
           <h1 className='text-2xl font-semibold text-gray-700'>회의실 예약</h1>
           <Link href={'/conference-rooms'}>
-            <button className='text-2xl'>{calenderIcon}</button>
+            <button className='text-2xl'>{calendarIcon}</button>
           </Link>
         </div>
         <div className='flex'>
