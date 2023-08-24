@@ -1,4 +1,4 @@
-import { darkModeIcon, noticeIcon, userIcon } from '@/assets/icons';
+import { noticeIcon, userIcon } from '@/assets/icons';
 import { Logo } from '@/assets/images';
 import apiController from '@/utils/apiController';
 import Link from 'next/link';
@@ -18,6 +18,11 @@ export default function Header(): ReactElement {
   const noticeRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
   const [noticeInfo, setNoticeInfo] = useState<Data[]>([]);
+  const [isChecked, setIsChecked] = useState(false);
+
+  const toggleSwitch = (): void => {
+    setIsChecked((prev) => !prev);
+  };
 
   useEffect(() => {
     setShowNotice(0);
@@ -59,7 +64,28 @@ export default function Header(): ReactElement {
             {Logo}
           </button>
           <div className='flex items-center justify-center space-x-4'>
-            <button>{darkModeIcon}</button>
+            <div className='col-span-full flex space-x-2'>
+              <div className='flex h-6 items-center'>
+                <button
+                  type='button'
+                  className={`flex w-8 flex-none cursor-pointer rounded-full p-px transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
+                    isChecked ? 'bg-gray-200' : 'bg-gray-700'
+                  }`}
+                  role='switch'
+                  aria-checked={isChecked}
+                  aria-labelledby='switch-1-label'
+                  onClick={toggleSwitch}
+                >
+                  <span
+                    aria-hidden='true'
+                    className={`h-4 w-4 translate-x-0 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out ${
+                      isChecked ? 'translate-x-3.5' : ''
+                    }`}
+                  ></span>
+                </button>
+                <input type='checkbox' checked={isChecked} className='sr-only' />
+              </div>
+            </div>
             <button
               onClick={() => {
                 showNotice === 2 ? setShowNotice(1) : setShowNotice(showNotice ^ 1);
