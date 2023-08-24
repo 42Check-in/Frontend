@@ -100,7 +100,7 @@ export default function Header(): ReactElement {
               {showNotice === 1 && (
                 <div
                   ref={noticeRef}
-                  className='absolute right-10 top-16 m-2 rounded-xl bg-[#e8e8e8] px-4 shadow-xl'
+                  className='absolute right-10 top-12 m-2 rounded-xl bg-[#e8e8e8] px-4 shadow-xl'
                 >
                   <p className='mb-2 border-b-2 border-gray-400 pt-2 text-left font-semibold text-gray-500'>
                     NOTIFICATIONS
@@ -135,7 +135,7 @@ export default function Header(): ReactElement {
               {showNotice === 2 && (
                 <div
                   ref={noticeRef}
-                  className='absolute right-6 top-16 m-2 flex flex-col rounded-xl bg-[#e8e8e8] px-4 shadow-xl'
+                  className='absolute right-6 top-12 m-2 flex flex-col rounded-xl bg-[#e8e8e8] px-4 shadow-xl'
                 >
                   <Link
                     href={'/my-check-in'}
