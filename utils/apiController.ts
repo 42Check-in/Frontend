@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import logout from './logout';
+
 const apiController = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_DOMAIN,
 });
@@ -43,7 +45,8 @@ apiController.interceptors.response.use(
       localStorage.setItem('accessToken', accessToken);
       return;
     }
-    return await Promise.reject(error);
+    console.log(error);
+    logout();
   },
 );
 
