@@ -36,20 +36,20 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
   // }, []);
 
   useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken === null) {
+      setHasToken(false);
+    } else {
+      setHasToken(true);
+    }
+  }, []);
+
+  useEffect(() => {
     if (router.pathname.includes('/login')) return;
     if (!hasToken) {
       void router.push('/login');
     }
   }, [hasToken]);
-
-  useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
-    if (accessToken === null) {
-      setHasToken(false);
-      return;
-    }
-    setHasToken(true);
-  }, [router]);
 
   return (
     <>
