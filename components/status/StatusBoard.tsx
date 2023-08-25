@@ -30,16 +30,17 @@ interface StatusBoardProps {
 }
 
 export default function StatusBoard({ setSelectFormInfo, vocal }: StatusBoardProps): ReactElement {
-  const [category, setCategory] = useState('conference-rooms');
+  const preReq = vocal ? 'visitors' : 'conference-rooms';
+  const [category, setCategory] = useState(preReq);
   const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
   const [checked, setChecked] = useState(false);
   useEffect(() => {
+    const config = {};
     if (vocal === true) {
-      setCategory('visitors');
+      config['url'] = `/vocal/subscriptions/${category}`;
+    } else {
+      config['url'] = `/my-checkin/${category}`;
     }
-    const config = {
-      url: `/my-checkin/${category}`,
-    };
     async function fecthForms(): Promise<void> {
       const { data } = await apiController(config);
       setResponseDataList(data);
