@@ -6,21 +6,25 @@ import FormSelect from '../common/FormSelect';
 import FormTextArea from '../common/FormTextArea';
 import FormWrapper from '../common/FormWrapper';
 
-const IS_VIDEO = ['희망', '희망하지 않음'];
-const LECTURES = [
-  'Rush',
-  'Piscine',
-  'Partnership',
-  'Conference',
-  'Meet-up',
-  'Event',
-  'Association',
-  'Hackathon',
-  'Workshop',
-  'Challenge',
-  'Extern',
-];
-const TIMES = ['15분', '30분', '45분', '1시간', '1~2시간'];
+const IS_VIDEO = {
+  0: '희망하지 않음', 1: '희망' 
+};
+const LECTURES = {
+  0: 'Rush',
+  1: 'Piscine',
+  2: 'Partnership',
+  3: 'Conference',
+  4: 'Meet-up',
+  5: 'Event',
+  6: 'Association',
+  7: 'Hackathon',
+  8: 'Workshop',
+  9: 'Challenge',
+  10: 'Extern'
+};
+const TIMES = {
+  0: '15분', 1: '30분', 2: '45분', 3: '1시간', 4: '1시간 이상'
+};
 
 interface PresentationsFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
