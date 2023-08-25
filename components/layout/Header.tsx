@@ -20,9 +20,11 @@ export default function Header(): ReactElement {
   const [showNotice, setShowNotice] = useState(0);
   const [noticeInfo, setNoticeInfo] = useState<Data[]>([]);
   const [isChecked, setIsChecked] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
   const toggleSwitch = (): void => {
     setIsChecked((prev) => !prev);
+    document.documentElement.classList.toggle('dark', !isChecked);
   };
 
   useEffect(() => {
@@ -54,7 +56,7 @@ export default function Header(): ReactElement {
 
   return (
     <>
-      <header className='fixed z-50 w-screen bg-[#4069FD]'>
+      <header className='fixed z-50 w-screen bg-[#4069FD] dark:bg-slate-700'>
         <nav className='flex items-center justify-between px-10'>
           <button
             className='flex pb-3'
@@ -97,7 +99,7 @@ export default function Header(): ReactElement {
                 void apiController(config);
               }}
             >
-              {noticeIcon}
+              <noticeIcon theme='dark' />
               {showNotice === 1 && (
                 <div
                   ref={noticeRef}
