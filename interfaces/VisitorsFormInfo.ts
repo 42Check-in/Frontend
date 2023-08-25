@@ -1,9 +1,13 @@
 export default interface VisitorsFormInfo {
-  formId: number;
-  visitorName: string;
-  date: string;
-  visitTime: string;
-  purpose: number;
-  relation: number;
-  place: number;
+  visitorsId: number;
+  intraId: string;
+  visitorsName: string;
+  visitDate: Date;
+  visitPurpose: number;
+  relationWithUser: number;
+  visitPlace: number;
+  etcPurpose: string;
+  etcRelation: string;
+  etcPlace: string;
+  agreement: boolean;
 }
