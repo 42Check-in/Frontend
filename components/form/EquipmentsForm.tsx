@@ -7,9 +7,15 @@ import FormSelect from '../common/FormSelect';
 import FormTextArea from '../common/FormTextArea';
 import FormWrapper from '../common/FormWrapper';
 
-const EQUIPMENTS = ['맥북', '삼성 노트북', '아이패드', '기타'];
-const PERIODS = ['1개월', '3개월'];
-const PURPOSES = ['42 과제', '기타'];
+const EQUIPMENTS = {
+  0: '기타', 1 :'맥북', 2: '삼성 노트북', 3: '아이패드'
+};
+const PERIODS = {
+  1: '1개월', 3: '3개월'
+};
+const PURPOSES = {
+  0: '기타', 1: '42 과제'
+};
 
 interface EquipmentsFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
