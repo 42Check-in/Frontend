@@ -30,8 +30,8 @@ apiController.interceptors.response.use(
   async function (error) {
     // 2xx 외의 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
     // 응답 오류가 있는 작업 수행
-    const { status } = error.response;
-    if (status === 1001) {
+    const { status, data } = error.response;
+    if (status === 400 && data === 1001) {
       const refreshToken = localStorage.getItem('refreshToken');
       const config = {
         url: '/reissue',
