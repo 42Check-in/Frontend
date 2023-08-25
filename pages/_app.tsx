@@ -60,12 +60,10 @@ export default function MyApp({ Component, pageProps }: AppProps): ReactElement 
       </Head>
       {loading ? (
         <Loading />
-      ) : hasToken ? (
+      ) : (
         <Layout>
           <Component pageProps={pageProps} />
         </Layout>
-      ) : (
-        <Component pageProps={pageProps} />
       )}
     </>
   );
