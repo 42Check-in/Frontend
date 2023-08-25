@@ -99,7 +99,7 @@ export default function Header(): ReactElement {
                 void apiController(config);
               }}
             >
-              <noticeIcon theme='dark' />
+              {noticeIcon}
               {showNotice === 1 && (
                 <div
                   ref={noticeRef}
