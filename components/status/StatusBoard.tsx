@@ -26,14 +26,17 @@ const btnContent = [
 
 interface StatusBoardProps {
   setSelectFormInfo: Dispatch<SetStateAction<FormInfo>>;
-  vocal: boolean;
+  vocal?: boolean;
 }
 
 export default function StatusBoard({ setSelectFormInfo, vocal }: StatusBoardProps): ReactElement {
   const [category, setCategory] = useState('conference-rooms');
   const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
-
+  const [checked, setChecked] = useState(false);
   useEffect(() => {
+    if (vocal === true) {
+      setCategory('visitors');
+    }
     const config = {
       url: `/my-checkin/${category}`,
     };
@@ -44,6 +47,25 @@ export default function StatusBoard({ setSelectFormInfo, vocal }: StatusBoardPro
     void fecthForms();
   }, [category]);
 
+  const btnBox = btnContent.map((items) => {
+    return vocal && items.url === 'conference-rooms' ? null : (
+      <div
+        key={items.text}
+        onClick={() => {
+          setCategory(items.url);
+        }}
+      >
+        <button
+          className={cls(
+            category === items.url ? 'bg-[#6AA6FF]' : 'bg-[#6A70FF]',
+            'rounded-[20px] px-5 py-2 font-bold text-white hover:bg-[#6AA6FF]',
+          )}
+        >
+          {items.text}
+        </button>
+      </div>
+    );
+  });
   return (
     <div className='m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border'>
       {/* 위에 버튼 4개있는 부분 */}
@@ -53,26 +75,14 @@ export default function StatusBoard({ setSelectFormInfo, vocal }: StatusBoardPro
             <input
               value='white'
               type='checkbox'
+              defaultChecked={checked}
+              onChange={() => {
+                setChecked(!checked);
+              }}
               className='mr-10 h-6 w-6 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500'
             />
           )}
-          {btnContent.map((items) => (
-            <div
-              key={items.text}
-              onClick={() => {
-                setCategory(items.url);
-              }}
-            >
-              <button
-                className={cls(
-                  category === items.url ? 'bg-[#6AA6FF]' : 'bg-[#6A70FF]',
-                  'rounded-[20px] px-5 py-2 font-bold text-white hover:bg-[#6AA6FF]',
-                )}
-              >
-                {items.text}
-              </button>
-            </div>
-          ))}
+          {btnBox}
         </div>
         {vocal && (
           <div className='flex space-x-4'>
@@ -99,6 +109,10 @@ export default function StatusBoard({ setSelectFormInfo, vocal }: StatusBoardPro
               <input
                 value='white'
                 type='checkbox'
+                defaultChecked={checked}
+                onChange={() => {
+                  setChecked(!checked);
+                }}
                 className='h-6 w-6 rounded border-gray-300 transition'
               />
             )}
