@@ -54,25 +54,33 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
           <FormInput
             title='방문자 이름'
             type='text'
+            value='visitorName'
             onChange={() => {}}
             placeholder='어떤 분을 데려 오시나요? 이름을 알려 주세요.'
           />
           <FormSelect
             title='방문자와의 관계'
             contents={RELATIONS}
+            value='relation'
             placeholder='방문자와 어떤 사이신가요?'
           />
           <FormSelect
             title='방문 목적'
             contents={PURPOSES}
+            value='purpose'
             placeholder='방문 목적을 선택해 주세요.'
           />
           <FormSelect
             title='방문 장소'
             contents={PLACES}
+            value='place'
             placeholder='방문 목적을 선택해 주세요.'
           />
-          <FormInput title='방문 예정 시각' type='time' onChange={() => {}} />
+          <FormInput title='방문 예정 시각'
+            type='time'
+            onChange={() => {}}
+            value='visitTime'
+          />
           <FormAgreement>
             <p>외부인 방문 시 반드시 동행할 것을 약속하며</p>
             <p>외부인에 의해 시설이 훼손된 경우 공동 책임이 따름을 확인했습니다.</p>

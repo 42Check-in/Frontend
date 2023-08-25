@@ -56,25 +56,45 @@ export default function PresentationsForm({ setShowModal }: PresentationsFormPro
           <FormInput
             title='신청자 이름'
             type='text'
+            value='userName'
             onChange={() => {}}
             placeholder='실명을 알려 주세요. (예시: 이정재)'
           />
           <FormInput
             title='수요지식회 제목'
             type='text'
+            value='subject'
             onChange={() => {}}
             placeholder='강연 제목을 입력해 주세요.'
           />
           <FormInput
             title='수요지식회 주제'
             type='text'
+            value='contents'
             onChange={() => {}}
             placeholder='어떤 주제로 강연하시나요?'
           />
-          <FormTextArea title='상세 내용' onChange={() => {}} />
-          <FormSelect title='소요 시간' contents={TIMES} span='1' />
-          <FormSelect title='강연 종류' contents={LECTURES} span='1' />
-          <FormSelect title='영상 촬영' contents={IS_VIDEO} span='1' />
+          <FormTextArea
+            title='상세 내용'
+            value='detail'
+            onChange={() => {}}
+            />
+          <FormSelect
+            title='소요 시간'
+            value='time'
+            contents={TIMES}
+            span='1'
+            />
+          <FormSelect
+            title='강연 종류'
+            value='type'
+            contents={LECTURES}
+            span='1' />
+          <FormSelect
+            title='영상 촬영'
+            value='screen'
+            contents={IS_VIDEO}
+            span='1' />
         </div>
       </FormWrapper>
     </FormContainer>
