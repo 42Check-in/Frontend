@@ -35,18 +35,20 @@ export default function StatusBoard({ setSelectFormInfo, vocal }: StatusBoardPro
   const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
   const [checked, setChecked] = useState(false);
   useEffect(() => {
-    const config = {};
-    if (vocal === true) {
-      config['url'] = `/vocal/subscriptions/${category}`;
+    const config = {
+      url: '',
+    };
+    if (vocal) {
+      config.url = `/vocal/subscriptions/${category}`;
     } else {
-      config['url'] = `/my-checkin/${category}`;
+      config.url = `/my-checkin/${category}`;
     }
     async function fecthForms(): Promise<void> {
       const { data } = await apiController(config);
       setResponseDataList(data);
     }
     void fecthForms();
-  }, [category]);
+  }, [category, vocal]);
 
   const btnBox = btnContent.map((items) => {
     return vocal && items.url === 'conference-rooms' ? null : (
