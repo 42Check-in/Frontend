@@ -60,8 +60,8 @@ export default function StatusBoard({ setSelectFormInfo, vocal }: StatusBoardPro
       >
         <button
           className={cls(
-            category === items.url ? 'bg-[#6AA6FF]' : 'bg-[#6A70FF]',
-            'rounded-[20px] px-5 py-2 font-bold text-white hover:bg-[#6AA6FF]',
+            category === items.url ? 'seletBtn' : 'notSeletBtn',
+            'rounded-[20px] px-5 py-2 font-bold text-white hover:bg-[#6AA6FF] dark:hover:bg-white ',
           )}
         >
           {items.text}
