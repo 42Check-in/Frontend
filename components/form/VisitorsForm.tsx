@@ -62,19 +62,19 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
           <FormSelect
             name='relationWithUser'
             title='방문자와의 관계'
-            contents={Object.values(RELATIONS)}
+            options={Object.values(RELATIONS)}
             placeholder='방문자와 어떤 사이신가요?'
           />
           <FormSelect
             name='visitPurpose'
             title='방문 목적'
-            contents={Object.values(PURPOSES)}
+            options={Object.values(PURPOSES)}
             placeholder='방문 목적을 선택해 주세요.'
           />
           <FormSelect
             name='visitPlace'
             title='방문 장소'
-            contents={Object.values(PLACES)}
+            options={Object.values(PLACES)}
             placeholder='방문 목적을 선택해 주세요.'
           />
           <FormInput name='visitTime' title='방문 예정 시각' type='time' />

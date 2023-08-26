@@ -5,8 +5,8 @@ import { useFormContext } from 'react-hook-form';
 
 interface FormSelectProps {
   name: string;
+  options: string[];
   title: string;
-  contents: string[];
   disabled?: boolean;
   placeholder?: string;
   span?: string;
@@ -15,8 +15,8 @@ interface FormSelectProps {
 
 export default function FormSelect({
   name,
+  options,
   title,
-  contents,
   disabled,
   placeholder,
   span = 'full',
@@ -63,8 +63,8 @@ export default function FormSelect({
             },
           })}
         >
-          {contents.map((content) => (
-            <option key={content}>{content}</option>
+          {options.map((option) => (
+            <option key={option}>{option}</option>
           ))}
         </select>
         {showInput && (
