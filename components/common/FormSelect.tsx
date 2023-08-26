@@ -8,6 +8,7 @@ interface FormSelectProps {
   options: string[];
   title: string;
   disabled?: boolean;
+  hasEtc?: boolean;
   placeholder?: string;
   span?: string;
   value?: string;
@@ -18,6 +19,7 @@ export default function FormSelect({
   options,
   title,
   disabled,
+  hasEtc = false,
   placeholder,
   span = 'full',
   value,
@@ -30,7 +32,7 @@ export default function FormSelect({
   } = useFormContext();
 
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>): void => {
-    if (event.target.value === '기타') {
+    if (event.target.value === '0') {
       setShowInput(true);
     } else {
       setShowInput(false);
@@ -40,6 +42,10 @@ export default function FormSelect({
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setInputValue(event.target.value);
   };
+
+  if (hasEtc) {
+    options = [...options, '기타'];
+  }
 
   return (
     <div className={`col-span-${span}`}>
@@ -63,9 +69,14 @@ export default function FormSelect({
             },
           })}
         >
-          {options.map((option) => (
-            <option key={option}>{option}</option>
-          ))}
+          {options.map((option, index) => {
+            const key = option === '기타' ? 0 : index + 1;
+            return (
+              <option key={key} value={key}>
+                {option}
+              </option>
+            );
+          })}
         </select>
         {showInput && (
           <input
