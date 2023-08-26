@@ -54,25 +54,25 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
       <FormWrapper setShowModal={setShowModal}>
         <div className='grid grid-cols-1 gap-y-6 pb-6'>
           <FormInput
-            name='visitorName'
+            name='visitorsName'
             title='방문자 이름'
             type='text'
             placeholder='어떤 분을 데려 오시나요? 이름을 알려 주세요.'
           />
           <FormSelect
-            name='relation'
+            name='relationWithUser'
             title='방문자와의 관계'
             contents={Object.values(RELATIONS)}
             placeholder='방문자와 어떤 사이신가요?'
           />
           <FormSelect
-            name='purpose'
+            name='visitPurpose'
             title='방문 목적'
             contents={Object.values(PURPOSES)}
             placeholder='방문 목적을 선택해 주세요.'
           />
           <FormSelect
-            name='place'
+            name='visitPlace'
             title='방문 장소'
             contents={Object.values(PLACES)}
             placeholder='방문 목적을 선택해 주세요.'
