@@ -78,7 +78,8 @@ export default function StatusBoard({ setSelectFormInfo, vocal }: StatusBoardPro
             <input
               value='white'
               type='checkbox'
-              defaultChecked={checked}
+              defaultChecked={false}
+              checked={checked}
               onChange={() => {
                 setChecked(!checked);
               }}
@@ -112,7 +113,8 @@ export default function StatusBoard({ setSelectFormInfo, vocal }: StatusBoardPro
               <input
                 value='white'
                 type='checkbox'
-                defaultChecked={checked}
+                defaultChecked={false}
+                checked={checked}
                 onChange={() => {
                   setChecked(!checked);
                 }}
