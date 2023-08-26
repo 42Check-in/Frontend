@@ -125,7 +125,7 @@ export default function Header(): ReactElement {
                   </div>
                 </div>
               )}
-              <div className='absolute right-[80px] top-2 flex aspect-square h-6 w-6 items-center justify-center rounded-full bg-slate-300 text-sm text-white'>
+              <div className='absolute right-[80px] top-2 flex aspect-square h-6 w-6 items-center justify-center rounded-full bg-slate-300 text-sm text-white transition dark:bg-violet-300'>
                 {noticeInfo.length}
               </div>
             </button>
