@@ -61,7 +61,7 @@ export default function StatusBoard({ setSelectFormInfo, vocal }: StatusBoardPro
         <button
           className={cls(
             category === items.url ? 'seletBtn' : 'notSeletBtn',
-            'rounded-[20px] px-5 py-2 font-bold text-white hover:bg-[#6AA6FF] dark:hover:bg-white ',
+            'rounded-[20px] px-5 py-2 font-bold text-white hover:border-[#6AA6FF] hover:bg-[#6AA6FF] dark:hover:bg-white ',
           )}
         >
           {items.text}
