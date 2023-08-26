@@ -8,7 +8,7 @@ interface FormSelectProps {
   options: string[];
   title: string;
   disabled?: boolean;
-  hasEtc?: boolean;
+  etcName?: string;
   placeholder?: string;
   span?: string;
   value?: string;
@@ -19,7 +19,7 @@ export default function FormSelect({
   options,
   title,
   disabled,
-  hasEtc = false,
+  etcName,
   placeholder,
   span = 'full',
   value,
@@ -43,6 +43,7 @@ export default function FormSelect({
     setInputValue(event.target.value);
   };
 
+  const hasEtc = etcName !== undefined;
   if (hasEtc) {
     options = [...options, '기타'];
   }
@@ -82,8 +83,11 @@ export default function FormSelect({
           <input
             type='text'
             value={inputValue}
-            onChange={handleInputChange}
             className='block w-[70%] rounded-md border-0 px-2.5 py-2.5 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600'
+            {...register(etcName, {
+              required: hasEtc,
+              onChange: handleInputChange,
+            })}
           />
         )}
       </div>
