@@ -1,3 +1,6 @@
+import formatDate from '@/utils/formatDate';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import type { Dispatch, ReactElement, SetStateAction } from 'react';
 
 import FormAgreement from '../common/FormAgreement';
@@ -30,6 +33,16 @@ interface VisitorsFormProps {
 }
 
 export default function VisitorsForm({ setShowModal }: VisitorsFormProps): ReactElement {
+  const router = useRouter();
+  const [selectedDate, setSelectedDate] = useState('');
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    const { date } = router.query;
+    if (typeof date !== 'string') return;
+    setSelectedDate(formatDate(new Date(date)));
+  }, [router]);
+
   return (
     <FormContainer>
       <div className='mx-auto max-w-2xl pb-5 text-gray-900'>
@@ -47,7 +60,7 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
         </p>
       </div>
       <FormWrapper setShowModal={setShowModal}>
-        <div className='grid grid-cols-1 gap-y-6 pb-6'>
+        <div className='grid grid-cols-2 gap-x-8 gap-y-6 pb-6'>
           <FormInput
             name='visitorsName'
             title='방문자 이름'
@@ -75,7 +88,14 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
             placeholder='방문 목적을 선택해 주세요.'
             hasEtc
           />
-          <FormInput name='visitTime' title='방문 예정 시각' type='time' />
+          <FormInput
+            name='visitDate'
+            title='방문 예정 날짜'
+            type='date'
+            span='1'
+            value={selectedDate}
+          />
+          <FormInput name='visitTime' title='방문 예정 시각' type='time' span='1' />
           <FormAgreement>
             <p>외부인 방문 시 반드시 동행할 것을 약속하며</p>
             <p>외부인에 의해 시설이 훼손된 경우 공동 책임이 따름을 확인했습니다.</p>
