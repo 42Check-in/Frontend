@@ -1,4 +1,5 @@
 import type PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
+import { time } from 'console';
 import type { Dispatch, ReactElement, SetStateAction } from 'react';
 
 import FormContainer from '../common/FormContainer';
@@ -63,24 +64,56 @@ export default function PresentationsForm({
             name='userName'
             title='신청자 이름'
             type='text'
+            value={formInfo.userName}
+            disabled={formInfo.userName !== null}
             placeholder='실명을 알려 주세요. (예시: 이정재)'
           />
           <FormInput
             name='title'
             title='수요지식회 제목'
             type='text'
+            value={formInfo.title}
+            disabled={formInfo.title !== null}
             placeholder='강연 제목을 입력해 주세요.'
           />
           <FormInput
             name='subject'
             title='수요지식회 주제'
             type='text'
+            value={formInfo.subject}
+            disabled={formInfo.subject !== null}
             placeholder='어떤 주제로 강연하시나요?'
           />
-          <FormTextArea name='detail' title='상세 내용' />
-          <FormSelect name='time' title='소요 시간' options={TIMES} span='1' />
-          <FormSelect name='type' title='강연 종류' options={LECTURES} span='1' />
-          <FormSelect name='screen' title='영상 촬영' options={IS_VIDEO} span='1' />
+          <FormTextArea
+            name='detail'
+            title='상세 내용'
+            value={formInfo.detail}
+            disabled={formInfo.detail !== null}
+          />
+          <FormSelect
+            name='time'
+            title='소요 시간'
+            options={TIMES}
+            span='1'
+            value={TIMES[formInfo.time]}
+            disabled={formInfo.time !== null}
+          />
+          <FormSelect
+            name='type'
+            title='강연 종류'
+            options={LECTURES}
+            span='1'
+            value={LECTURES[formInfo.type]}
+            disabled={formInfo.type !== null}
+          />
+          <FormSelect
+            name='screen'
+            title='영상 촬영'
+            options={IS_VIDEO}
+            span='1'
+            value={IS_VIDEO[formInfo.screen]}
+            disabled={formInfo.screen !== null}
+          />
         </div>
       </FormWrapper>
     </FormContainer>
