@@ -1,3 +1,4 @@
+import EquipmentsFormInfo from '@/interfaces/EquipmentsFormInfo';
 import type { Dispatch, ReactElement, SetStateAction } from 'react';
 
 import FormAgreement from '../common/FormAgreement';
@@ -13,9 +14,14 @@ const PURPOSES = ['42 과제'];
 
 interface EquipmentsFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  formInfo: EquipmentsFormInfo;
 }
 
-export default function EquipmentsForm({ setShowModal }: EquipmentsFormProps): ReactElement {
+export default function EquipmentsForm({
+  setShowModal,
+  formInfo,
+}: EquipmentsFormProps): ReactElement {
+  console.log(formInfo);
   return (
     <FormContainer>
       <div className='mx-auto max-w-2xl pb-5 text-gray-900'>

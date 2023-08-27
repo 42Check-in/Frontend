@@ -1,3 +1,4 @@
+import PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
 import type { Dispatch, ReactElement, SetStateAction } from 'react';
 
 import FormContainer from '../common/FormContainer';
@@ -24,9 +25,14 @@ const TIMES = ['15분', '30분', '45분', '1시간', '1시간 이상'];
 
 interface PresentationsFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  formInfo: PresentationsFormInfo;
 }
 
-export default function PresentationsForm({ setShowModal }: PresentationsFormProps): ReactElement {
+export default function PresentationsForm({
+  setShowModal,
+  formInfo,
+}: PresentationsFormProps): ReactElement {
+  console.log(formInfo);
   return (
     <FormContainer>
       <div className='mx-auto max-w-2xl pb-5 text-gray-900'>

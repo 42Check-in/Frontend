@@ -1,3 +1,4 @@
+import VisitorsFormInfo from '@/interfaces/VisitorsFormInfo';
 import formatDate from '@/utils/formatDate';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -30,9 +31,11 @@ const RELATIONS = [
 
 interface VisitorsFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  formInfo: VisitorsFormInfo;
 }
 
-export default function VisitorsForm({ setShowModal }: VisitorsFormProps): ReactElement {
+export default function VisitorsForm({ setShowModal, formInfo }: VisitorsFormProps): ReactElement {
+  console.log(formInfo);
   const router = useRouter();
   const [selectedDate, setSelectedDate] = useState('');
 
