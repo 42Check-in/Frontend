@@ -1,4 +1,4 @@
-import PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
+import type PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
 import type { Dispatch, ReactElement, SetStateAction } from 'react';
 
 import FormContainer from '../common/FormContainer';

@@ -1,4 +1,4 @@
-import EquipmentsFormInfo from '@/interfaces/EquipmentsFormInfo';
+import type EquipmentsFormInfo from '@/interfaces/EquipmentsFormInfo';
 import type { Dispatch, ReactElement, SetStateAction } from 'react';
 
 import FormAgreement from '../common/FormAgreement';

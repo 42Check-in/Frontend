@@ -1,4 +1,4 @@
-import VisitorsFormInfo from '@/interfaces/VisitorsFormInfo';
+import type VisitorsFormInfo from '@/interfaces/VisitorsFormInfo';
 import formatDate from '@/utils/formatDate';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
