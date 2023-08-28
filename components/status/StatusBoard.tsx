@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import type { ReactElement } from 'react';
 
+import ModalText from '../common/ModalText';
+import ModalWrapper from '../common/ModalWrapper';
 import Status from './Status';
 
 const btnContent = [
@@ -35,6 +37,8 @@ export default function StatusBoard({ vocal }: StatusBoardProps): ReactElement {
   const [category, setCategory] = useState('visitors');
   const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
   const [checked, setChecked] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [selectForm, setSelectForm] = useState<FormInfo>();
 
   useEffect(() => {
     const config = {
@@ -71,6 +75,16 @@ export default function StatusBoard({ vocal }: StatusBoardProps): ReactElement {
       </div>
     );
   });
+
+  const onClick = async (formId: number): Promise<void> => {
+    const config = {
+      url: `/${category}/cancel`,
+      method: 'POST',
+      data: { formId },
+    };
+    await apiController(config);
+  };
+
   return (
     <div className='m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border'>
       {/* 위에 버튼 4개있는 부분 */}
@@ -124,9 +138,35 @@ export default function StatusBoard({ vocal }: StatusBoardProps): ReactElement {
                 className='h-6 w-6 rounded border-gray-300 transition'
               />
             )}
-            <Status status={item} />
+            <Status status={item} setShowModal={setShowModal} setSelectForm={setSelectForm} />
           </Link>
         ))}
+        {showModal && (
+          <ModalWrapper>
+            <ModalText>취소하시나요??</ModalText>
+            <div className='flex justify-center space-x-2'>
+              <button
+                onClick={(event) => {
+                  event.preventDefault();
+                  setShowModal(false);
+                }}
+                className='button-modal'
+              >
+                취소
+              </button>
+              <button
+                onClick={(event) => {
+                  event.preventDefault();
+                  void onClick(selectForm?.formId);
+                  setShowModal(false);
+                }}
+                className='button-modal'
+              >
+                확인
+              </button>
+            </div>
+          </ModalWrapper>
+        )}
       </div>
     </div>
   );

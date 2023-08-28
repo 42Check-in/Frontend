@@ -1,13 +1,15 @@
 import type FormInfo from '@/interfaces/FormInfo';
 import { cls } from '@/styles/cls';
-import type { ReactElement } from 'react';
+import { type ReactElement } from 'react';
 
 interface StatusProps {
   status: FormInfo;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectForm: React.Dispatch<React.SetStateAction<FormInfo | undefined>>;
 }
 
-const STATUS = ['승인 대기', '승인', '아젠다 등록', '강의 완료', '대기 중'];
-export default function Status({ status }: StatusProps): ReactElement {
+const STATUS = ['승인 대기', '승인', '아젠다 등록', '강의 완료', '차례 대기 중'];
+export default function Status({ status, setShowModal, setSelectForm }: StatusProps): ReactElement {
   let date, time, details;
 
   if (status.equipment !== undefined) {
@@ -24,7 +26,6 @@ export default function Status({ status }: StatusProps): ReactElement {
     details = status.visitorsName;
   }
 
-  console.log(status);
   return (
     <>
       <div className='dark:text-white'>{date}</div>
@@ -44,6 +45,16 @@ export default function Status({ status }: StatusProps): ReactElement {
       >
         {STATUS[status.status]}
       </div>
+      <button
+        onClick={(event) => {
+          event.preventDefault();
+          setShowModal(true);
+          setSelectForm(status);
+        }}
+        className='rounded-2xl bg-red-400 px-2 text-white transition hover:bg-red-500'
+      >
+        취소
+      </button>
     </>
   );
 }
