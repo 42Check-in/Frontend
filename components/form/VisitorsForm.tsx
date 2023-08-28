@@ -35,10 +35,9 @@ interface VisitorsFormProps {
 }
 
 export default function VisitorsForm({ setShowModal, formInfo }: VisitorsFormProps): ReactElement {
-  console.log(formInfo);
   const router = useRouter();
   const [selectedDate, setSelectedDate] = useState('');
-  const myCheckin = router.pathname === '/my-checkin';
+  const myCheckin = router.pathname.includes('/my-checkin');
 
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setSelectedDate(event.target.value);
