@@ -3,7 +3,7 @@ import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import type { Dispatch, ReactElement, SetStateAction } from 'react';
+import type { ReactElement } from 'react';
 
 import Status from './Status';
 
