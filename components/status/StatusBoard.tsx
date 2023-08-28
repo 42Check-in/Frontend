@@ -108,7 +108,7 @@ export default function StatusBoard({ vocal }: StatusBoardProps): ReactElement {
             key={i}
             href={{
               pathname: `/my-checkin/${category}`,
-              query: { item: JSON.stringify(item) },
+              query: { formDetail: JSON.stringify(item) },
             }}
             className='mx-4 flex justify-between space-x-2 rounded-2xl border-2 px-6 py-8 text-xl shadow-xl transition duration-300 ease-in-out hover:bg-[#6AA6FF]'
           >
