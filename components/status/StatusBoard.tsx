@@ -1,6 +1,7 @@
 import type FormInfo from '@/interfaces/FormInfo';
 import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
+import useHandleMouseIndex from '@/utils/handleMouse';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import type { ReactElement } from 'react';
@@ -39,6 +40,7 @@ export default function StatusBoard({ vocal }: StatusBoardProps): ReactElement {
   const [checked, setChecked] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectForm, setSelectForm] = useState<FormInfo>();
+  const { mouseOnIndex, handleMouseOut, handleMouseOver } = useHandleMouseIndex();
 
   useEffect(() => {
     const config = {
@@ -116,13 +118,21 @@ export default function StatusBoard({ vocal }: StatusBoardProps): ReactElement {
           </div>
         )}
       </div>
-      <div className=' mt-6 space-y-5'>
+      <div
+        onMouseOut={() => {
+          handleMouseOut(-1);
+        }}
+        className=' mt-6 space-y-5'
+      >
         {responseDataList.map((item, i) => (
           <Link
-            key={i}
+            key={item.formId}
             href={{
               pathname: `/my-checkin/${category}`,
               query: { formDetail: JSON.stringify(item) },
+            }}
+            onMouseOver={() => {
+              handleMouseOver(item.formId);
             }}
             className='mx-4 flex justify-between space-x-2 rounded-2xl border-2 px-6 py-8 text-xl shadow-xl transition duration-300 ease-in-out hover:bg-[#6AA6FF] dark:hover:bg-gray-700'
           >
@@ -138,7 +148,12 @@ export default function StatusBoard({ vocal }: StatusBoardProps): ReactElement {
                 className='h-6 w-6 rounded border-gray-300 transition'
               />
             )}
-            <Status status={item} setShowModal={setShowModal} setSelectForm={setSelectForm} />
+            <Status
+              status={item}
+              setShowModal={setShowModal}
+              setSelectForm={setSelectForm}
+              mouseOnIndex={mouseOnIndex}
+            />
           </Link>
         ))}
         {showModal && (
