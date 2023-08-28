@@ -67,14 +67,9 @@ export default function Header(): ReactElement {
     <>
       <header className='fixed z-50 w-screen bg-[#4069FD] dark:bg-slate-700'>
         <nav className='flex items-center justify-between px-10'>
-          <button
-            className='flex py-2'
-            onClick={async () => {
-              await router.push('/');
-            }}
-          >
+          <Link href='/' className='flex py-2'>
             {Logo}
-          </button>
+          </Link>
           <div className='flex items-center justify-center space-x-4'>
             <div className='col-span-full flex space-x-2'>
               <div className='flex h-6 items-center'>
