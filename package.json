@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.8",
+    "@fullcalendar/interaction": "^6.1.8",
     "@fullcalendar/resource-timeline": "^6.1.8",
     "@types/node": "20.5.0",
     "@types/react": "18.2.20",
