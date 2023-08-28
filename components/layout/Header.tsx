@@ -92,7 +92,8 @@ export default function Header(): ReactElement {
                 </button>
               </div>
             </div>
-            <button
+            <div
+              className='cursor-pointer'
               onClick={() => {
                 showNotice === 2 ? setShowNotice(1) : setShowNotice(showNotice ^ 1);
                 const config = {
@@ -131,8 +132,9 @@ export default function Header(): ReactElement {
               <div className='absolute right-[80px] top-2 flex aspect-square h-6 w-6 items-center justify-center rounded-full bg-slate-300 text-sm text-white transition dark:bg-violet-300'>
                 {noticeInfo.length}
               </div>
-            </button>
-            <button
+            </div>
+            <div
+              className='cursor-pointer'
               onClick={() => {
                 showNotice === 1 ? setShowNotice(2) : setShowNotice(showNotice ^ 2);
               }}
@@ -168,7 +170,7 @@ export default function Header(): ReactElement {
                   </button>
                 </div>
               )}
-            </button>
+            </div>
           </div>
         </nav>
       </header>
