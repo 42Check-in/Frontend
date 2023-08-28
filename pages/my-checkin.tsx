@@ -28,8 +28,11 @@ export default function MyCheckin(): ReactElement {
 
   return (
     <div>
-      <StatusBoard setSelectFormInfo={setSelectFormInfo} setSelectCategory={setSelectCategory} />
-      <div>{formBox}</div>
+      {selectFormInfo ? (
+        <div>{formBox}</div>
+      ) : (
+        <StatusBoard setSelectFormInfo={setSelectFormInfo} setSelectCategory={setSelectCategory} />
+      )}
     </div>
   );
 }
