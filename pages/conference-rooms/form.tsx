@@ -1,8 +1,8 @@
 import apiController from '@/utils/apiController';
+import getISODate from '@/utils/getISODate';
 import { Calendar } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
-import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
@@ -104,7 +104,7 @@ export default function Timeline(): ReactElement {
 
   useEffect(() => {
     const date = router.query.date as string;
-    setDate(dayjs(date).format('YYYY-MM-DD'));
+    setDate(getISODate(date));
   }, [router]);
 
   return (
