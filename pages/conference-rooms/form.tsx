@@ -1,33 +1,64 @@
 import apiController from '@/utils/apiController';
+import getDurations from '@/utils/getDurations';
+import getHoursIndex from '@/utils/getHoursIndex';
 import getISODate from '@/utils/getISODate';
 import { Calendar } from '@fullcalendar/core';
+import type { EventInput, EventSourceInput } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
 
-function getHoursIndex(time: Date): number {
-  const hours = time.getHours() + time.getMinutes() / 60;
-  return (hours - 8) * 2;
+interface TimeMasks {
+  gaepo: number[];
+  seocho: number[];
 }
+
+const ROOM_IDS = [
+  '0b01000001111111111111111111111111',
+  '0b01000010111111111111111111111111',
+  '0b01000100111111111111111111111111',
+  '0b01001000111111111111111111111111',
+  '0b01010000111111111111111111111111',
+  '0b10000001111111111111111111111111',
+  '0b10000010111111111111111111111111',
+];
 
 export default function Timeline(): ReactElement {
   const calendarRef = useRef(null);
   const router = useRouter();
   const [date, setDate] = useState<string>();
+  const [events, setEvents] = useState<EventSourceInput>();
   const [roomId, setRoomId] = useState<number>();
   const [startIndex, setStartIndex] = useState<number>();
   const [endIndex, setEndIndex] = useState<number>();
 
   function getMask(): number {
-    let mask = 0b0;
+    let mask = 0xff000000;
     for (let i = 0; i < 24; ++i) {
       if (startIndex <= i && i < endIndex) {
         mask |= 1 << i;
       }
     }
-    return mask | roomId;
+    return mask & roomId;
+  }
+
+  function setEventTimes(timeMasks: TimeMasks): void {
+    const eventInputs: EventInput[] = [];
+    const masks = [...Object.values(timeMasks.gaepo), ...Object.values(timeMasks.seocho)];
+    masks.forEach((mask, index) => {
+      const durations = getDurations(mask, date);
+      durations.forEach((duration) => {
+        const [start, end] = duration;
+        eventInputs.push({
+          resourceId: ROOM_IDS[index],
+          start,
+          end,
+        });
+      });
+    });
+    setEvents(eventInputs);
   }
 
   function handleSubmitClick(): void {
@@ -38,6 +69,7 @@ export default function Timeline(): ReactElement {
       method: 'post',
       data: { date, reservationInfo },
     };
+    console.log(date, reservationInfo.toString(2))
     void apiController(config);
   }
 
@@ -48,20 +80,17 @@ export default function Timeline(): ReactElement {
         url: `/conference-rooms/place-time/${date}`,
       };
       const { data } = await apiController(config);
-      console.log(data);
-      // setData(data);
+      setEventTimes(data);
     }
     void fetchData();
+  }, [date]);
+
+  useEffect(() => {
+    if (events === undefined) return;
     if (calendarRef.current === null) return;
     const calendarEl = calendarRef.current;
     const calendar = new Calendar(calendarEl, {
-      events: [
-        {
-          resourceId: '0b01000100000000000000000000000000',
-          start: '2023-08-29T14:00:00+09:00',
-          end: '2023-08-29T15:00:00+09:00',
-        },
-      ],
+      events,
       eventDisplay: 'background',
       headerToolbar: {
         left: '',
@@ -74,13 +103,13 @@ export default function Timeline(): ReactElement {
       locale: 'ko',
       plugins: [interactionPlugin, resourceTimelinePlugin],
       resources: [
-        { id: '0b01000001000000000000000000000000', location: '개포', title: 'Cluster1-1' },
-        { id: '0b01000010000000000000000000000000', location: '개포', title: 'Cluster1-2' },
-        { id: '0b01000100000000000000000000000000', location: '개포', title: 'Cluster-X' },
-        { id: '0b01001000000000000000000000000000', location: '개포', title: 'Cluster3-1' },
-        { id: '0b01010000000000000000000000000000', location: '개포', title: 'Cluster3-2' },
-        { id: '0b10000001000000000000000000000000', location: '서초', title: 'Cluster7' },
-        { id: '0b10000010000000000000000000000000', location: '서초', title: 'Cluster9' },
+        { id: ROOM_IDS[0], location: '개포', title: 'Cluster1-1' },
+        { id: ROOM_IDS[1], location: '개포', title: 'Cluster1-2' },
+        { id: ROOM_IDS[2], location: '개포', title: 'Cluster-X' },
+        { id: ROOM_IDS[3], location: '개포', title: 'Cluster3-1' },
+        { id: ROOM_IDS[4], location: '개포', title: 'Cluster3-2' },
+        { id: ROOM_IDS[5], location: '서초', title: 'Cluster7' },
+        { id: ROOM_IDS[6], location: '서초', title: 'Cluster9' },
       ],
       resourceAreaWidth: '150px',
       resourceAreaColumns: [{ field: 'title' }],
@@ -107,7 +136,7 @@ export default function Timeline(): ReactElement {
       },
     });
     calendar.render();
-  }, [date]);
+  }, [events]);
 
   useEffect(() => {
     const date = router.query.date as string;
