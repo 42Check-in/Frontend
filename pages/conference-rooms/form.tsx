@@ -16,23 +16,29 @@ export default function Timeline(): ReactElement {
   const calendarRef = useRef(null);
   const router = useRouter();
   const [date, setDate] = useState<string>();
+  const [roomId, setRoomId] = useState<number>();
   const [startIndex, setStartIndex] = useState<number>();
   const [endIndex, setEndIndex] = useState<number>();
 
-  function getTimeMask(): number {
+  function getMask(): number {
     let mask = 0b0;
     for (let i = 0; i < 24; ++i) {
       if (startIndex <= i && i < endIndex) {
         mask |= 1 << i;
       }
     }
-    for (let i = 24; i < 30; ++i) {}
-    for (let i = 30; i < 32; ++i) {}
-    return mask;
+    return mask | roomId;
   }
 
   function handleSubmitClick(): void {
-    console.log(getTimeMask().toString(2));
+    if (roomId === undefined) return;
+    const reservationInfo = getMask();
+    const config = {
+      url: '/conference-rooms/form',
+      method: 'post',
+      data: { date, reservationInfo },
+    };
+    void apiController(config);
   }
 
   useEffect(() => {
@@ -51,9 +57,9 @@ export default function Timeline(): ReactElement {
     const calendar = new Calendar(calendarEl, {
       events: [
         {
-          resourceId: '3',
-          start: '2023-08-28T14:00:00+09:00',
-          end: '2023-08-28T15:00:00+09:00',
+          resourceId: '0b01000100000000000000000000000000',
+          start: '2023-08-29T14:00:00+09:00',
+          end: '2023-08-29T15:00:00+09:00',
         },
       ],
       eventDisplay: 'background',
@@ -68,18 +74,19 @@ export default function Timeline(): ReactElement {
       locale: 'ko',
       plugins: [interactionPlugin, resourceTimelinePlugin],
       resources: [
-        { id: '1', location: '개포', title: 'Cluster1-1' },
-        { id: '2', location: '개포', title: 'Cluster1-2' },
-        { id: '3', location: '개포', title: 'Cluster-X' },
-        { id: '4', location: '개포', title: 'Cluster3-1' },
-        { id: '5', location: '개포', title: 'Cluster3-2' },
-        { id: '6', location: '서초', title: 'Cluster7' },
-        { id: '7', location: '서초', title: 'Cluster9' },
+        { id: '0b01000001000000000000000000000000', location: '개포', title: 'Cluster1-1' },
+        { id: '0b01000010000000000000000000000000', location: '개포', title: 'Cluster1-2' },
+        { id: '0b01000100000000000000000000000000', location: '개포', title: 'Cluster-X' },
+        { id: '0b01001000000000000000000000000000', location: '개포', title: 'Cluster3-1' },
+        { id: '0b01010000000000000000000000000000', location: '개포', title: 'Cluster3-2' },
+        { id: '0b10000001000000000000000000000000', location: '서초', title: 'Cluster7' },
+        { id: '0b10000010000000000000000000000000', location: '서초', title: 'Cluster9' },
       ],
       resourceAreaWidth: '150px',
       resourceAreaColumns: [{ field: 'title' }],
       resourceGroupField: 'location',
-      select: function ({ start, end }) {
+      select: function ({ resource, start, end }) {
+        setRoomId(Number(resource._resource.id));
         setStartIndex(getHoursIndex(start));
         setEndIndex(getHoursIndex(end));
       },
