@@ -6,8 +6,8 @@ import { type ReactElement } from 'react';
 interface StatusProps {
   status: FormInfo;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelectForm: React.Dispatch<React.SetStateAction<FormInfo | undefined>>;
-  mouseOnIndex: number;
+  setSelectForm?: React.Dispatch<React.SetStateAction<FormInfo | undefined>>;
+  mouseOnIndex?: number;
   vocal?: boolean;
 }
 
