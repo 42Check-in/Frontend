@@ -34,7 +34,9 @@ export default function Loading(): ReactElement {
           )}
         </div>
       </div>
-      <div className='loading-text'>Check-in 중입니다...</div>
+      <div className='loading-text'>
+        Check-in 중입니다<span className='dots'></span>
+      </div>
       <style jsx>{`
         .box {
           width: 100px;
@@ -56,7 +58,24 @@ export default function Loading(): ReactElement {
           font-style: italic; /* Add italic style */
           text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Add subtle text shadow */
         }
+        .dots::after {
+          content: '...';
+          display: inline-block;
+          animation: dotsAnimation 1.5s infinite steps(4);
+        }
 
+
+        @keyframes dotsAnimation {
+          0%, 33% {
+            content: '.';
+          }
+          34%, 66% {
+            content: '..';
+          }
+          67%, 100% {
+            content: '...';
+          }
+        }
         .box.show {
           animation: appear-rotate 1s ease-in-out;
         }
@@ -103,6 +122,8 @@ export default function Loading(): ReactElement {
             opacity: 1;
           }
         }
+
+        
       `}</style>
     </div>
   );
