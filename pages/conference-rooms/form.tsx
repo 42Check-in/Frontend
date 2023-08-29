@@ -144,8 +144,8 @@ export default function Timeline(): ReactElement {
   }, [events]);
 
   useEffect(() => {
-    const date = router.query.date as string;
-    setDate(getISODate(date));
+    const { date } = router.query;
+    setDate(getISODate(date as string));
   }, [router]);
 
   return (
