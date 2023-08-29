@@ -1,3 +1,4 @@
+import OkModal from '@/components/modal/OkModal';
 import apiController from '@/utils/apiController';
 import getDurations from '@/utils/getDurations';
 import getHoursIndex from '@/utils/getHoursIndex';
@@ -31,6 +32,7 @@ export default function Timeline(): ReactElement {
   const [date, setDate] = useState<string>();
   const [events, setEvents] = useState<EventSourceInput>();
   const [roomId, setRoomId] = useState<number>();
+  const [showModal, setShowModal] = useState(false);
   const [startIndex, setStartIndex] = useState<number>();
   const [endIndex, setEndIndex] = useState<number>();
 
@@ -63,14 +65,17 @@ export default function Timeline(): ReactElement {
 
   function handleSubmitClick(): void {
     if (roomId === undefined) return;
-    const reservationInfo = getMask();
-    const config = {
-      url: '/conference-rooms/form',
-      method: 'post',
-      data: { date, reservationInfo },
-    };
-    console.log(date, reservationInfo.toString(2))
-    void apiController(config);
+    async function fetchData(): Promise<void> {
+      const reservationInfo = getMask();
+      const config = {
+        url: '/conference-rooms/form',
+        method: 'post',
+        data: { date, reservationInfo },
+      };
+      await apiController(config);
+      setShowModal(true);
+    }
+    void fetchData();
   }
 
   useEffect(() => {
@@ -151,6 +156,11 @@ export default function Timeline(): ReactElement {
       >
         Check-in
       </button>
+      {showModal && (
+        <OkModal>
+          <p>회의실 예약이 완료되었습니다.</p>
+        </OkModal>
+      )}
     </div>
   );
 }
