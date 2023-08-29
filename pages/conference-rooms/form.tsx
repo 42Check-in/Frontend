@@ -13,7 +13,7 @@ function getHoursIndex(time: Date): number {
   return (hours - 8) * 2;
 }
 
-export default function Timetable(): ReactElement {
+export default function Timeline(): ReactElement {
   const calendarRef = useRef(null);
   const router = useRouter();
   const [date, setDate] = useState<Date>();
