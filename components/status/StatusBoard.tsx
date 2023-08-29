@@ -29,12 +29,7 @@ const btnContent = [
   },
 ];
 
-interface StatusBoardProps {
-  vocal?: boolean;
-}
-
-export default function StatusBoard({ vocal }: StatusBoardProps): ReactElement {
-  // const preReq = vocal ? 'visitors' : 'conference-rooms';
+export default function StatusBoard(): ReactElement {
   const [category, setCategory] = useState('visitors');
   const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
   const [checked, setChecked] = useState(false);
@@ -44,22 +39,17 @@ export default function StatusBoard({ vocal }: StatusBoardProps): ReactElement {
 
   useEffect(() => {
     const config = {
-      url: '',
+      url: `/my-checkin/${category}`,
     };
-    if (vocal) {
-      config.url = `/vocal/subscriptions/${category}`;
-    } else {
-      config.url = `/my-checkin/${category}`;
-    }
     async function fecthForms(): Promise<void> {
       const { data } = await apiController(config);
       setResponseDataList(data);
     }
     void fecthForms();
-  }, [category, vocal]);
+  }, [category]);
 
   const btnBox = btnContent.map((items) => {
-    return vocal && items.url === 'conference-rooms' ? null : (
+    return (
       <div
         key={items.text}
         onClick={() => {
@@ -91,32 +81,7 @@ export default function StatusBoard({ vocal }: StatusBoardProps): ReactElement {
     <div className='m-10 flex max-h-[80wh] min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border'>
       {/* 위에 버튼 4개있는 부분 */}
       <div className='sticky top-0 flex justify-between space-x-4 border-b-2 bg-white p-10 pb-4 dark:bg-slate-700'>
-        <div className='flex items-center space-x-2'>
-          {vocal && (
-            <input
-              value='white'
-              type='checkbox'
-              defaultChecked={false}
-              checked={checked}
-              onChange={() => {
-                setChecked(!checked);
-              }}
-              className='mr-10 h-6 w-6 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500'
-            />
-          )}
-          {btnBox}
-        </div>
-        {vocal && (
-          <div className='flex space-x-4'>
-            <button className='rounded-full px-2 transition-colors hover:bg-[#6AA6FF] hover:text-white hover:shadow-xl'>
-              수락
-            </button>
-            <div className='my-2 border-2 border-gray-300' />
-            <button className='rounded-full px-2 transition-colors hover:bg-[#6AA6FF] hover:text-white hover:shadow-xl'>
-              거절
-            </button>
-          </div>
-        )}
+        <div className='flex items-center space-x-2'>{btnBox}</div>
       </div>
       <div
         onMouseOut={() => {
@@ -136,18 +101,6 @@ export default function StatusBoard({ vocal }: StatusBoardProps): ReactElement {
             }}
             className='mx-4 flex justify-between space-x-2 rounded-2xl border-2 px-6 py-8 text-xl shadow-xl transition duration-300 ease-in-out hover:bg-[#6AA6FF] dark:hover:bg-gray-700'
           >
-            {vocal && (
-              <input
-                value='white'
-                type='checkbox'
-                defaultChecked={false}
-                checked={checked}
-                onChange={() => {
-                  setChecked(!checked);
-                }}
-                className='h-6 w-6 rounded border-gray-300 transition'
-              />
-            )}
             <Status
               status={item}
               setShowModal={setShowModal}
