@@ -2,6 +2,7 @@ import apiController from '@/utils/apiController';
 import { Calendar } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
+import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
@@ -36,6 +37,15 @@ export default function Timeline(): ReactElement {
 
   useEffect(() => {
     if (date === undefined) return;
+    async function fetchData(): Promise<void> {
+      const config = {
+        url: `/conference-rooms/place-time/${date}`,
+      };
+      const { data } = await apiController(config);
+      console.log(data);
+      // setData(data);
+    }
+    void fetchData();
     if (calendarRef.current === null) return;
     const calendarEl = calendarRef.current;
     const calendar = new Calendar(calendarEl, {
@@ -94,16 +104,7 @@ export default function Timeline(): ReactElement {
 
   useEffect(() => {
     const date = router.query.date as string;
-    setDate(date);
-    async function fetchData(): Promise<void> {
-      const config = {
-        url: `/conference-rooms/place-time/${date}`,
-      };
-      const { data } = await apiController(config);
-      console.log(data);
-      // setData(data);
-    }
-    void fetchData();
+    setDate(dayjs(date).format('YYYY-MM-DD'));
   }, [router]);
 
   return (
