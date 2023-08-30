@@ -1,5 +1,4 @@
-import { noticeIcon, threeBarsIcon, userIcon } from '@/assets/icons';
-import { Logo } from '@/assets/images';
+import ICONS from '@/assets/icons';
 import apiController from '@/utils/apiController';
 import logout from '@/utils/logout';
 import Link from 'next/link';
@@ -62,6 +61,12 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
       setNoticeInfo(data);
     }
     void fetchData();
+
+    if (theme === null) {
+      localStorage.setItem('theme', 'light');
+    } else if (theme === 'dark') {
+      document.documentElement.classList.toggle('dark', true);
+    }
   }, []);
 
   useEffect(() => {
@@ -82,21 +87,13 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
     };
   }, [showNotice]);
 
-  useEffect(() => {
-    if (theme === null) {
-      localStorage.setItem('theme', 'light');
-    } else if (theme === 'dark') {
-      document.documentElement.classList.toggle('dark', true);
-    }
-  }, [theme]);
-
   return (
     <>
       <header className='fixed z-50 w-screen bg-[#4069FD] dark:bg-slate-700'>
         <nav className='flex items-center justify-between px-10'>
           <div className='flex items-center justify-center'>
             <Link href='/' className='flex w-12 py-2'>
-              {Logo}
+              {ICONS.logo}
             </Link>
             <button
               onClick={() => {
@@ -104,7 +101,7 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
               }}
               className='full-sidebar ml-2 mt-2 h-[50px] w-[50px] dark:text-white'
             >
-              {threeBarsIcon}
+              {ICONS.threeBars}
             </button>
           </div>
           <div className='flex items-center justify-center space-x-4'>
@@ -130,7 +127,7 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
               </div>
             </div>
             <div ref={noticeIconRef} className='cursor-pointer' onClick={handleNoticeIconClick}>
-              {noticeIcon}
+              {ICONS.notice}
               {showNotice === 1 && (
                 <div className='absolute right-10 top-12 m-2 rounded-xl bg-[#e8e8e8] px-4 shadow-xl'>
                   <p className='mb-2 border-b-2 border-gray-400 pt-2 text-left font-semibold text-gray-500'>
@@ -158,7 +155,7 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
               </div>
             </div>
             <div ref={userIconRef} className='cursor-pointer' onClick={handleUserIconClick}>
-              {userIcon}
+              {ICONS.user}
               {showNotice === 2 && (
                 <div className='absolute right-6 top-12 m-1 flex flex-col rounded-xl bg-[#e8e8e8] px-2 shadow-xl'>
                   <Link
