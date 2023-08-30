@@ -15,13 +15,35 @@ interface Data {
   notice: boolean;
 }
 
-export default function Header({setShowSideBar, showSidebar}): ReactElement {
+export default function Header({ setShowSideBar, showSidebar }): ReactElement {
   const router = useRouter();
-  const noticeRef = useRef<HTMLDivElement>(null);
+  const noticeIconRef = useRef<HTMLDivElement>(null);
+  const userIconRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
   const [noticeInfo, setNoticeInfo] = useState<Data[]>([]);
   const theme = localStorage.getItem('theme');
   const [isChecked, setIsChecked] = useState(theme === 'dark');
+
+  function handleNoticeIconClick(): void {
+    if (showNotice === 1) {
+      setShowNotice(0);
+      return;
+    }
+    setShowNotice(1);
+    const config = {
+      url: '/notice',
+      method: 'POST',
+    };
+    void apiController(config);
+  }
+
+  function handleUserIconClick(): void {
+    if (showNotice === 2) {
+      setShowNotice(0);
+      return;
+    }
+    setShowNotice(2);
+  }
 
   const toggleSwitch = (): void => {
     setIsChecked((prev) => {
@@ -38,7 +60,9 @@ export default function Header({setShowSideBar, showSidebar}): ReactElement {
 
   useEffect(() => {
     function handleOutsideClick(event: any): void {
-      if (showNotice > 0 && !noticeRef.current?.contains(event.target as Node)) {
+      if (showNotice === 0) return;
+      const currentRef = showNotice === 1 ? noticeIconRef : userIconRef;
+      if (!currentRef.current.contains(event.target as Node)) {
         setShowNotice(0);
       }
     }
@@ -68,14 +92,18 @@ export default function Header({setShowSideBar, showSidebar}): ReactElement {
     <>
       <header className='fixed z-50 w-screen bg-[#4069FD] dark:bg-slate-700'>
         <nav className='flex items-center justify-between px-10'>
-          <div className='flex justify-center items-center'>
-          <Link href='/' className='flex py-2'>
-            {Logo}
-          </Link>
-          <button onClick={()=> {setShowSideBar(!showSidebar)}}
-            className='full-sidebar w-[50px] h-[50px] mt-2 ml-2 dark:text-white'>
-            {threeBarsIcon}
-          </button>
+          <div className='flex items-center justify-center'>
+            <Link href='/' className='flex py-2'>
+              {Logo}
+            </Link>
+            <button
+              onClick={() => {
+                setShowSideBar(!showSidebar);
+              }}
+              className='full-sidebar ml-2 mt-2 h-[50px] w-[50px] dark:text-white'
+            >
+              {threeBarsIcon}
+            </button>
           </div>
           <div className='flex items-center justify-center space-x-4'>
             <div className='col-span-full flex space-x-2'>
@@ -99,23 +127,10 @@ export default function Header({setShowSideBar, showSidebar}): ReactElement {
                 </button>
               </div>
             </div>
-            <div
-              className='cursor-pointer'
-              onClick={() => {
-                showNotice === 2 ? setShowNotice(1) : setShowNotice(showNotice ^ 1);
-                const config = {
-                  url: '/notice',
-                  method: 'POST',
-                };
-                void apiController(config);
-              }}
-            >
+            <div ref={noticeIconRef} className='cursor-pointer' onClick={handleNoticeIconClick}>
               {noticeIcon}
               {showNotice === 1 && (
-                <div
-                  ref={noticeRef}
-                  className='absolute right-10 top-12 m-2 rounded-xl bg-[#e8e8e8] px-4 shadow-xl'
-                >
+                <div className='absolute right-10 top-12 m-2 rounded-xl bg-[#e8e8e8] px-4 shadow-xl'>
                   <p className='mb-2 border-b-2 border-gray-400 pt-2 text-left font-semibold text-gray-500'>
                     NOTIFICATIONS
                   </p>
@@ -140,18 +155,10 @@ export default function Header({setShowSideBar, showSidebar}): ReactElement {
                 {noticeInfo.length}
               </div>
             </div>
-            <div
-              className='cursor-pointer'
-              onClick={() => {
-                showNotice === 1 ? setShowNotice(2) : setShowNotice(showNotice ^ 2);
-              }}
-            >
+            <div ref={userIconRef} className='cursor-pointer' onClick={handleUserIconClick}>
               {userIcon}
               {showNotice === 2 && (
-                <div
-                  ref={noticeRef}
-                  className='absolute right-6 top-12 m-1 flex flex-col rounded-xl bg-[#e8e8e8] px-2 shadow-xl'
-                >
+                <div className='absolute right-6 top-12 m-1 flex flex-col rounded-xl bg-[#e8e8e8] px-2 shadow-xl'>
                   <Link
                     href={'/my-checkin'}
                     className='mt-2 rounded-lg p-4 text-gray-600 transition hover:bg-[#4069FD] hover:bg-opacity-60 hover:text-white dark:hover:bg-slate-700'
