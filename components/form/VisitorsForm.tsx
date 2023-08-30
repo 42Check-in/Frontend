@@ -34,22 +34,18 @@ interface VisitorsFormProps {
   formInfo: VisitorsFormInfo;
 }
 
-export default function VisitorsForm({ setShowModal }: VisitorsFormProps): ReactElement {
+export default function VisitorsForm({ setShowModal, formInfo }: VisitorsFormProps): ReactElement {
   const router = useRouter();
   const [selectedDate, setSelectedDate] = useState('');
   const myCheckin = router.pathname.includes('/my-checkin');
-  const [formDetail, setFormDetail] = useState<VisitorsFormInfo>();
 
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setSelectedDate(event.target.value);
   };
 
   useEffect(() => {
-    const { date, formDetail } = router.query;
+    const { date } = router.query;
     setSelectedDate(getISODate(date as string));
-    if (formDetail !== undefined) {
-      setFormDetail(JSON.parse(formDetail as string));
-    }
   }, [router]);
 
   return (
@@ -75,7 +71,7 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
             title='방문자 이름'
             type='text'
             placeholder='어떤 분을 데려 오시나요? 이름을 알려 주세요.'
-            value={formDetail?.visitorsName}
+            value={formInfo?.visitorsName}
             disabled={myCheckin}
           />
           <FormSelect
@@ -84,7 +80,7 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
             options={RELATIONS}
             etcName='etcRelation'
             placeholder='방문자와 어떤 사이신가요?'
-            value={RELATIONS[formDetail?.relationWithUser - 1]}
+            value={RELATIONS[formInfo?.relationWithUser - 1]}
             disabled={myCheckin}
           />
           <FormSelect
@@ -93,7 +89,7 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
             options={PURPOSES}
             etcName='etcPurpose'
             placeholder='방문 목적을 선택해 주세요.'
-            value={PURPOSES[formDetail?.visitPurpose - 1]}
+            value={PURPOSES[formInfo?.visitPurpose - 1]}
             disabled={myCheckin}
           />
           <FormSelect
@@ -102,7 +98,7 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
             options={PLACES}
             etcName='etcPlace'
             placeholder='방문 목적을 선택해 주세요.'
-            value={PLACES[formDetail?.visitPlace - 1]}
+            value={PLACES[formInfo?.visitPlace - 1]}
             disabled={myCheckin}
           />
           <FormInput
@@ -111,7 +107,7 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
             type='date'
             span='1'
             registerOptions={{ onChange: handleDateChange }}
-            value={formDetail?.date.toISOString() ?? selectedDate}
+            value={formInfo?.date ?? selectedDate}
             disabled={myCheckin}
           />
           <FormInput
@@ -119,7 +115,7 @@ export default function VisitorsForm({ setShowModal }: VisitorsFormProps): React
             title='방문 예정 시각'
             type='time'
             span='1'
-            value={formDetail?.visitTime}
+            value={formInfo?.visitTime}
             disabled={myCheckin}
           />
           <FormAgreement>
