@@ -1,6 +1,5 @@
 import { noticeIcon, threeBarsIcon, userIcon } from '@/assets/icons';
 import { Logo } from '@/assets/images';
-import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
 import logout from '@/utils/logout';
 import Link from 'next/link';
@@ -22,7 +21,7 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
   const [showNotice, setShowNotice] = useState(0);
   const [noticeInfo, setNoticeInfo] = useState<Data[]>([]);
   const theme = localStorage.getItem('theme');
-  const [isChecked, setIsChecked] = useState(theme === 'dark');
+  const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
 
   function handleNoticeIconClick(): void {
     if (showNotice === 1) {
@@ -37,6 +36,15 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
     void apiController(config);
   }
 
+  function handleThemeToggleClick(): void {
+    setIsDarkMode((prev) => {
+      const curr = !prev;
+      document.documentElement.classList.toggle('dark', curr);
+      localStorage.setItem('theme', curr ? 'dark' : 'light');
+      return curr;
+    });
+  }
+
   function handleUserIconClick(): void {
     if (showNotice === 2) {
       setShowNotice(0);
@@ -45,18 +53,20 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
     setShowNotice(2);
   }
 
-  const toggleSwitch = (): void => {
-    setIsChecked((prev) => {
-      const curr = !prev;
-      document.documentElement.classList.toggle('dark', curr);
-      localStorage.setItem('theme', curr ? 'dark' : 'light');
-      return curr;
-    });
-  };
+  useEffect(() => {
+    const config = {
+      url: '/notice',
+    };
+    async function fetchData(): Promise<void> {
+      const { data } = await apiController(config);
+      setNoticeInfo(data);
+    }
+    void fetchData();
+  }, []);
 
   useEffect(() => {
     setShowNotice(0);
-  }, [router.asPath]);
+  }, [router]);
 
   useEffect(() => {
     function handleOutsideClick(event: any): void {
@@ -73,20 +83,12 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
   }, [showNotice]);
 
   useEffect(() => {
-    const config = {
-      url: '/notice',
-    };
-    async function fetch(): Promise<void> {
-      const { data } = await apiController(config);
-      setNoticeInfo(data);
-    }
-    void fetch();
     if (theme === null) {
       localStorage.setItem('theme', 'light');
     } else if (theme === 'dark') {
       document.documentElement.classList.toggle('dark', true);
     }
-  }, []);
+  }, [theme]);
 
   return (
     <>
@@ -111,17 +113,17 @@ export default function Header({ setShowSideBar, showSidebar }): ReactElement {
                 <button
                   type='button'
                   className={`flex w-8 flex-none cursor-pointer rounded-full p-px transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
-                    isChecked ? 'bg-gray-200' : 'bg-gray-700'
+                    isDarkMode ? 'bg-gray-200' : 'bg-gray-700'
                   }`}
                   role='switch'
-                  aria-checked={isChecked}
+                  aria-checked={isDarkMode}
                   aria-labelledby='switch-1-label'
-                  onClick={toggleSwitch}
+                  onClick={handleThemeToggleClick}
                 >
                   <span
                     aria-hidden='true'
                     className={`h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out ${
-                      isChecked ? 'translate-x-3.5' : 'translate-x-0'
+                      isDarkMode ? 'translate-x-3.5' : 'translate-x-0'
                     }`}
                   />
                 </button>
