@@ -23,9 +23,14 @@ function Menu({ href, text }: MenuProps): ReactElement {
   );
 }
 
-export default function Sidebar({showSidebar}): ReactElement {
+export default function Sidebar({ showSidebar }): ReactElement {
   return (
-    <div className={cls(showSidebar ? 'sidebar' : '', 'fixed left-0 z-10 bg-[#4069FD] pt-[62px] dark:bg-slate-800 ')}>
+    <div
+      className={cls(
+        showSidebar ? 'sidebar' : '',
+        'fixed left-0 z-40 bg-[#4069FD] pt-[62px] dark:bg-slate-800 ',
+      )}
+    >
       <div className='flex h-screen w-28 flex-col space-y-2.5 border-r border-[#909090] px-2 py-3.5 dark:border-none'>
         <Menu href='/conference-rooms' text='회의실 예약' />
         <Menu href='/visitors' text='외부인 초대' />
