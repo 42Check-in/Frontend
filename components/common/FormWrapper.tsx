@@ -38,6 +38,12 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
     setRentalType(type as string);
   }, [router]);
 
+  const BtnSwitch = (): ReactElement => {
+    const pathname = router.pathname;
+    if (pathname.includes('/my-checkin')) return null;
+    else if (pathname.includes('/vocal')) return <FormSubmitButton text='승인' />;
+    else return <FormSubmitButton text='Check-in' />;
+  };
   return (
     <FormProvider {...methods}>
       <form
@@ -47,7 +53,8 @@ export default function FormWrapper({ setShowModal, children }: FormWrapperProps
         className='mx-auto my-10 max-w-xl'
       >
         {children}
-        {!router.pathname.includes('/my-checkin') && <FormSubmitButton />}
+        {/* {!router.pathname.includes('/my-checkin') && <FormSubmitButton />} */}
+        {BtnSwitch()}
       </form>
     </FormProvider>
   );
