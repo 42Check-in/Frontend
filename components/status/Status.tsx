@@ -11,7 +11,7 @@ interface StatusProps {
   vocal?: boolean;
 }
 
-const STATUS = ['승인 대기', '승인', '아젠다 등록', '강의 완료', '차례 대기 중'];
+const STATUS = ['승인 대기', '승인', '스케줄 등록 완료',  '아젠다 등록', '강의 완료', '차례 대기 중'];
 export default function Status({
   status,
   setShowModal,
