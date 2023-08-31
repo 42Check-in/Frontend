@@ -4,6 +4,7 @@ import apiController from '@/utils/apiController';
 import { useEffect, useState } from 'react';
 import type { Dispatch, ReactElement } from 'react';
 
+import PresentationsStatus from './PresentationsStatus';
 import Status from './Status';
 
 const btnContent = [
@@ -27,6 +28,8 @@ interface VocalStatusBoardProps {
   category: string;
   setCheckedList: Dispatch<React.SetStateAction<number[]>>;
   checkedList: number[];
+  setChangePresentations: Dispatch<React.SetStateAction<{}>>;
+  changePresentations: {};
 }
 
 export default function StatusBoard({
@@ -35,6 +38,8 @@ export default function StatusBoard({
   category,
   setCheckedList,
   checkedList,
+  setChangePresentations,
+  changePresentations,
 }: VocalStatusBoardProps): ReactElement {
   const [responseDataList, setResponseDataList] = useState<FormInfo[]>([]);
   const [checked, setChecked] = useState(false);
@@ -78,18 +83,20 @@ export default function StatusBoard({
       {/* 위에 버튼 4개있는 부분 */}
       <div className='sticky top-0 flex justify-between space-x-4 border-b-2 bg-white p-10 pb-4 dark:bg-slate-700'>
         <div className='flex items-center space-x-2'>
-          <input
-            value='white'
-            type='checkbox'
-            defaultChecked={false}
-            checked={checked}
-            onChange={() => {
-              setChecked(!checked);
-              if (checked) setCheckedList([]);
-              else setCheckedList(responseDataList.map((item) => item.formId));
-            }}
-            className='mr-10 h-6 w-6 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500'
-          />
+          {category !== 'presentations' && (
+            <input
+              value='white'
+              type='checkbox'
+              defaultChecked={false}
+              checked={checked}
+              onChange={() => {
+                setChecked(!checked);
+                if (checked) setCheckedList([]);
+                else setCheckedList(responseDataList.map((item) => item.formId));
+              }}
+              className='mr-10 h-6 w-6 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500'
+            />
+          )}
           {btnBox}
         </div>
       </div>
@@ -102,19 +109,29 @@ export default function StatusBoard({
               setSelectFormInfo(item);
             }}
           >
-            <input
-              value='white'
-              type='checkbox'
-              defaultChecked={false}
-              checked={checkedList.includes(item.formId)}
-              onChange={() => {
-                checkedList.includes(item.formId)
-                  ? setCheckedList(checkedList.filter((id) => id !== item.formId))
-                  : setCheckedList([...checkedList, item.formId]);
-              }}
-              className='h-6 w-6 rounded border-gray-300 transition'
-            />
-            <Status status={item} vocal />
+            {category !== 'presentations' && (
+              <input
+                value='white'
+                type='checkbox'
+                defaultChecked={false}
+                checked={checkedList.includes(item.formId)}
+                onChange={() => {
+                  checkedList.includes(item.formId)
+                    ? setCheckedList(checkedList.filter((id) => id !== item.formId))
+                    : setCheckedList([...checkedList, item.formId]);
+                }}
+                className='h-6 w-6 rounded border-gray-300 transition'
+              />
+            )}
+            {category !== 'presentations' ? (
+              <Status status={item} vocal />
+            ) : (
+              <PresentationsStatus
+                status={item}
+                changePresentations={changePresentations}
+                setChangePresentations={setChangePresentations}
+              />
+            )}
           </div>
         ))}
       </div>
