@@ -1,24 +1,17 @@
 import type FormInfo from '@/interfaces/FormInfo';
 import { cls } from '@/styles/cls';
-import { type ReactElement } from 'react';
 import dayjs from 'dayjs';
+import { type ReactElement } from 'react';
 
 interface StatusProps {
   status: FormInfo;
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowModal?: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectForm?: React.Dispatch<React.SetStateAction<FormInfo | undefined>>;
   mouseOnIndex?: number;
   vocal?: boolean;
 }
 
-const STATUS = [
-  '신청 중',
-  '승인',
-  '스케줄 등록 완료',
-  '아젠다 등록',
-  '강의 완료',
-  '차례 대기 중',
-];
+const STATUS = ['신청 중', '승인', '스케줄 등록 완료', '아젠다 등록', '강의 완료', '차례 대기 중'];
 
 const SPEECHTIME = ['15분', '30분', '45분', '1시간', '1시간 이상'];
 export default function Status({
