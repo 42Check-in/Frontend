@@ -48,7 +48,12 @@ export default function PresentationsStatus({
         {STATUS[status.status]}
       </div>
       {status.status !== 4 && (
-        <select name='statusBox' id={status.formId.toString()} onChange={onChange}>
+        <select
+          name='statusBox'
+          id={status.formId.toString()}
+          onChange={onChange}
+          defaultValue={status.status}
+        >
           <option value='' selected>
             상태를 선택해주세요.
           </option>
