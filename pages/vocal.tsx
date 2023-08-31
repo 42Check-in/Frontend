@@ -14,8 +14,9 @@ export default function Vocal(): ReactElement {
   const [category, setCategory] = useState('visitors');
   const [showModal, setShowModal] = useState(false);
   const [checkedList, setCheckedList] = useState<number[]>([]);
-
+  const [changePresentations, setChangePresentations] = useState({});
   const staff = localStorage.getItem('staff');
+
   if (staff === 'false') {
     return (
       <ModalWrapper>
@@ -53,6 +54,16 @@ export default function Vocal(): ReactElement {
     };
     await apiController(config);
   };
+
+  const onClickPresentations = async (data: {}) => {
+    console.log(data);
+    const config = {
+      url: '/vocal/subscriptions/presentations',
+      method: 'POST',
+      data,
+    };
+    await apiController(config);
+  };
   return (
     <div className='flex flex-col justify-between lg:flex-row'>
       <VocalStatusBoard
@@ -61,6 +72,8 @@ export default function Vocal(): ReactElement {
         setCategory={setCategory}
         setCheckedList={setCheckedList}
         checkedList={checkedList}
+        setChangePresentations={setChangePresentations}
+        changePresentations={changePresentations}
       />
       <div className='m-10 flex min-w-max flex-col overflow-auto rounded-xl border'>
         {selectedForm()} {/* 선택된 폼 상세 내용  */}
@@ -92,7 +105,7 @@ export default function Vocal(): ReactElement {
               onClick={(event) => {
                 if (category !== 'presentations')
                   void onClick(checkedList, [selectFormInfo.formId]);
-                // else void onClick()
+                else void onClickPresentations(changePresentations);
                 setShowModal(false);
               }}
               className='button-modal dark:text-white'
