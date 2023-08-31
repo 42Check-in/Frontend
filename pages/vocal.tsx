@@ -55,12 +55,11 @@ export default function Vocal(): ReactElement {
     await apiController(config);
   };
 
-  const onClickPresentations = async (data: {}) => {
-    console.log(data);
+  const onClickPresentations = async (presenList: {}) => {
     const config = {
       url: '/vocal/subscriptions/presentations',
       method: 'POST',
-      data,
+      data: { presenList },
     };
     await apiController(config);
   };
