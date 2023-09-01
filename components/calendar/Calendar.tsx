@@ -11,13 +11,13 @@ const WEEKS = [0, 1, 2, 3, 4, 5];
 
 export default function Calendar(): ReactElement {
   const prevMonth = useRef<number>();
-  const { pathname } = useRouter();
+  const router = useRouter();
   const [availableDates, setAvailableDates] = useState<number>();
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  const [firstDays, setFirstDays] = useState<number[]>([]);
-  const [lastDate, setLastDate] = useState(0);
   const [disabled, setDisabled] = useState(false);
+  const [firstDays, setFirstDays] = useState<number[]>([]);
+  const [lastDate, setLastDate] = useState<number>();
 
   function handlePrevMonthClick(): void {
     if (prevMonth.current === 0) {
@@ -65,7 +65,7 @@ export default function Calendar(): ReactElement {
     async function handleCurrentMonth(): Promise<void> {
       await handleCurrentYear();
       await handleLastDate();
-      if (pathname.startsWith('/conference-rooms')) {
+      if (router.pathname.startsWith('/conference-rooms')) {
         void fetchData();
       }
       prevMonth.current = currentMonth;
@@ -80,6 +80,8 @@ export default function Calendar(): ReactElement {
     }
     setFirstDays(days);
   }, [currentYear]);
+
+  if (prevMonth.current === undefined) return;
 
   return (
     <div className='m-16 rounded bg-white p-4 shadow-lg transition dark:bg-gray-700'>
