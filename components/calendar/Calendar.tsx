@@ -12,7 +12,7 @@ const WEEKS = [0, 1, 2, 3, 4, 5];
 export default function Calendar(): ReactElement {
   const prevMonth = useRef<number>();
   const { pathname } = useRouter();
-  const [availableDates, setAvailableDates] = useState<boolean[]>([]);
+  const [availableDates, setAvailableDates] = useState<number>();
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [firstDays, setFirstDays] = useState<number[]>([]);
@@ -46,14 +46,11 @@ export default function Calendar(): ReactElement {
 
   useEffect(() => {
     async function fetchData(): Promise<void> {
-      function decodeDates(dates: number): boolean[] {
-        return Array(lastDate).map((_, index) => Boolean(dates ^ (1 << index)));
-      }
       const config = {
         url: `/conference-rooms/calendar/${currentYear}/${currentMonth + 1}`,
       };
       const { data } = await apiController(config);
-      setAvailableDates(decodeDates(data));
+      setAvailableDates(data);
     }
     async function handleCurrentYear(): Promise<void> {
       if (prevMonth.current === 0 && currentMonth === 11) {
@@ -140,6 +137,7 @@ export default function Calendar(): ReactElement {
                     row={week}
                     month={currentMonth}
                     year={currentYear}
+                    availableDates={availableDates}
                   />
                 </tr>
               ))}
