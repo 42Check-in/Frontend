@@ -12,7 +12,7 @@ export default function Vocal(): ReactElement {
   const [selectFormInfo, setSelectFormInfo] = useState<FormInfo>(undefined);
   const [category, setCategory] = useState('visitors');
   const [showModal, setShowModal] = useState(false);
-  const [checkedList, setCheckedList] = useState<number[]>([]);
+  const [checkedList, setCheckedList] = useState<FormInfo[]>([]);
   const [changePresentations, setChangePresentations] = useState({});
   const staff = localStorage.getItem('staff');
 
@@ -44,13 +44,15 @@ export default function Vocal(): ReactElement {
     }
   };
 
-  const onClick = async (formIds: number[], selectFormInfo: number[]): Promise<void> => {
-    const formId = formIds.length === 0 ? selectFormInfo : formIds;
+  const onClick = async (formIds: FormInfo[]): Promise<void> => {
+    const formId = formIds.map((info) => info.formId);
+
     const config = {
       url: `/vocal/subscriptions/${category}`,
       method: 'POST',
       data: { formIds: formId },
     };
+
     await apiController(config);
   };
 
@@ -66,6 +68,7 @@ export default function Vocal(): ReactElement {
   return (
     <div className='flex flex-col justify-between lg:flex-row'>
       <VocalStatusBoard
+        selectFormInfo={selectFormInfo}
         setSelectFormInfo={setSelectFormInfo}
         category={category}
         setCategory={setCategory}
@@ -80,8 +83,8 @@ export default function Vocal(): ReactElement {
       <div className='flex space-x-4'>
         <button
           onClick={() => {
-            if (checkedList.length === 0 && selectFormInfo === undefined) {
-              alert('선택된 폼이 없습니다.');
+            if (checkedList.length === 0) {
+              alert('체크 박스로 선택 후 승인해주세요.');
               return;
             }
             setShowModal(true);
@@ -105,8 +108,7 @@ export default function Vocal(): ReactElement {
             </button>
             <button
               onClick={(event) => {
-                if (category !== 'presentations')
-                  void onClick(checkedList, [selectFormInfo.formId]);
+                if (category !== 'presentations') void onClick(checkedList);
                 else void onClickPresentations(changePresentations);
                 setShowModal(false);
               }}
