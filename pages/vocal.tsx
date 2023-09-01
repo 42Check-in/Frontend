@@ -54,7 +54,7 @@ export default function Vocal(): ReactElement {
     await apiController(config);
   };
 
-  const onClickPresentations = async (presenList: {}) => {
+  const onClickPresentations = async (presenList: {}): Promise<void> => {
     const config = {
       url: '/vocal/subscriptions/presentations',
       method: 'POST',
@@ -62,6 +62,7 @@ export default function Vocal(): ReactElement {
     };
     await apiController(config);
   };
+
   return (
     <div className='flex flex-col justify-between lg:flex-row'>
       <VocalStatusBoard
@@ -79,7 +80,10 @@ export default function Vocal(): ReactElement {
       <div className='flex space-x-4'>
         <button
           onClick={() => {
-            if (checkedList.length === 0 && !selectFormInfo) return alert('선택된 폼이 없습니다.');
+            if (checkedList.length === 0 && selectFormInfo === undefined) {
+              alert('선택된 폼이 없습니다.');
+              return;
+            }
             setShowModal(true);
           }}
           className='absolute left-1/2 top-20 z-50 h-14 w-14 rounded-full bg-teal-400 text-lg text-white shadow-xl ring-2 ring-teal-300 transition-colors hover:animate-pulse hover:bg-teal-300 hover:ring-2 hover:ring-teal-300 hover:ring-offset-2 dark:hover:text-black'
