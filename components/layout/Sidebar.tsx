@@ -1,51 +1,35 @@
-import ICONS from '@/assets/icons';
 import { cls } from '@/styles/cls';
+import apiController from '@/utils/apiController';
+import logout from '@/utils/logout';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 import { type ReactElement, useEffect, useState } from 'react';
 
 interface MenuProps {
   href: string;
   text: string;
+  icon: string;
 }
 
-function Menu({ href, text }: MenuProps): ReactElement {
+function Menu({ href, text, icon }: MenuProps): ReactElement {
   const router = useRouter();
   return (
-    <Link
-      href={href}
-      className={cls(
-        router.pathname.startsWith(href) ? 'seletBtn' : 'notSeletBtn',
-        'rounded-[20px] border-2 px-1 py-3.5 text-center text-sm font-bold text-white transition-colors duration-300 ease-in-out hover:border-[#6AA6FF] hover:bg-[#6AA6FF] dark:border-slate-800 dark:hover:bg-white',
-      )}
-    >
-      {text}
-    </Link>
+    <li className='nav-link'>
+      <Link
+        href={href}
+        className={cls(
+          router.pathname.startsWith(href) && 'border-2 border-[#6AA6FF] dark:border-white',
+        )}
+      >
+        <i className={`bx ${icon} icon`}></i>
+        <span className='text nav-text'>{text}</span>
+      </Link>
+    </li>
   );
 }
 
-const MODETEXT = ['Light mode', 'Dark mode'];
 export default function Sidebar({ showSidebar }): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
-  const theme = localStorage.getItem('theme');
-  const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
-
-  // function handleThemeToggleClick(): void {
-  //   setIsDarkMode((prev) => {
-  //     const curr = !prev;
-  //     document.documentElement.classList.toggle('dark', curr);
-  //     localStorage.setItem('theme', curr ? 'dark' : 'light');
-  //     return curr;
-  //   });
-  // }
-
-  // useEffect(() => {
-  //   if (theme === null) {
-  //     localStorage.setItem('theme', 'light');
-  //   } else if (theme === 'dark') {
-  //     document.documentElement.classList.toggle('dark', true);
-  //   }
-  // }, []);
 
   useEffect(() => {
     const body = document.querySelector('body');
@@ -57,9 +41,9 @@ export default function Sidebar({ showSidebar }): ReactElement {
       body.classList.toggle('dark');
 
       if (body.classList.contains('dark')) {
-        modeText.innerText = 'Light mode';
+        modeText.innerText = '밝은 모드';
       } else {
-        modeText.innerText = 'Dark mode';
+        modeText.innerText = '어둠 모드';
       }
     });
 
@@ -75,20 +59,7 @@ export default function Sidebar({ showSidebar }): ReactElement {
   };
 
   return (
-    // <div
-    //   className={cls(
-    //     showSidebar ? 'sidebar' : '',
-    //     'fixed left-0 z-40 bg-[#6282f7] pt-[62px] dark:bg-slate-800 ',
-    //   )}
-    // >
-    //   <div className='flex h-screen w-28 flex-col space-y-2.5 border-r border-[#909090] px-2 py-3.5 dark:border-none'>
-    //     <Menu href='/conference-rooms' text='회의실 예약' />
-    //     <Menu href='/visitors' text='외부인 초대' />
-    //     <Menu href='/presentations' text='수요지식회' />
-    //     <Menu href='/equipments' text='기자재 대여' />
-    //   </div>
-    // </div>
-    <nav className={cls(isOpen ? 'close' : '', 'sidebar border-r-2 ')}>
+    <nav className={cls(isOpen ? '' : 'close', 'sidebar border-r-2 ')}>
       <header>
         <div className='image-text'>
           <span className='image'></span>
@@ -99,16 +70,28 @@ export default function Sidebar({ showSidebar }): ReactElement {
       <div className='menu-bar'>
         <div className='menu'>
           <ul className='menu-links'>
-            <li className='nav-link'>
-              <Link href={'/'}>
-                <i className='bx bx-home-alt icon'></i>
-                <span className='text nav-text'>Dashboard</span>
-              </Link>
-            </li>
+            <Menu href='/conference-rooms' text='회의실 예약' icon='bx-conversation' />
+            <Menu href='/visitors' text='외부인 초대' icon='bx-street-view' />
+            <Menu href='/presentations' text='수요지식회' icon='bxs-megaphone' />
+            <Menu href='/equipments' text='기자재 대여' icon='bx-donate-heart' />
           </ul>
         </div>
         <div className='bottom-content'>
-          <li className=''>
+          <li
+            onClick={() => {
+              const config = {
+                url: '/logout',
+                method: 'POST',
+              };
+              async function fetch(): Promise<void> {
+                await apiController(config);
+                logout();
+                await router.push('/login');
+              }
+              void fetch();
+            }}
+            className=''
+          >
             <a href='#'>
               <i className='bx bx-log-out icon'></i>
               <span className='text nav-text'>Logout</span>
@@ -119,7 +102,7 @@ export default function Sidebar({ showSidebar }): ReactElement {
               <i className='bx bx-moon icon moon'></i>
               <i className='bx bx-sun icon sun'></i>
             </div>
-            <span className='mode-text text'>{isDarkMode ? 'Light mode' : 'Dark mode'}</span>
+            <span className='mode-text text'>어둠 모드</span>
             <div className='toggle-switch'>
               <span className='switch'></span>
             </div>
