@@ -41,8 +41,6 @@ export default function Header({ setShowSideBar, showSidebar }: HeaderProps): Re
   const userIconRef = useRef<HTMLDivElement>(null);
   const [showNotice, setShowNotice] = useState(0);
   const [noticeInfo, setNoticeInfo] = useState<Data>(0);
-  const theme = localStorage.getItem('theme');
-  const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
 
   const today = dayjs();
 
@@ -59,15 +57,6 @@ export default function Header({ setShowSideBar, showSidebar }: HeaderProps): Re
     void apiController(config);
   }
 
-  function handleThemeToggleClick(): void {
-    setIsDarkMode((prev) => {
-      const curr = !prev;
-      document.documentElement.classList.toggle('dark', curr);
-      localStorage.setItem('theme', curr ? 'dark' : 'light');
-      return curr;
-    });
-  }
-
   function handleUserIconClick(): void {
     if (showNotice === 2) {
       setShowNotice(0);
@@ -75,14 +64,6 @@ export default function Header({ setShowSideBar, showSidebar }: HeaderProps): Re
     }
     setShowNotice(2);
   }
-
-  useEffect(() => {
-    if (theme === null) {
-      localStorage.setItem('theme', 'light');
-    } else if (theme === 'dark') {
-      document.documentElement.classList.toggle('dark', true);
-    }
-  }, []);
 
   useEffect(() => {
     setShowNotice(0);
@@ -140,27 +121,6 @@ export default function Header({ setShowSideBar, showSidebar }: HeaderProps): Re
             </button>
           </div>
           <div className='flex items-center justify-center space-x-4'>
-            <div className='col-span-full flex space-x-2'>
-              <div className='flex h-6 items-center'>
-                <button
-                  type='button'
-                  className={`flex w-8 flex-none cursor-pointer rounded-full p-px transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
-                    isDarkMode ? 'bg-gray-200' : 'bg-gray-700'
-                  }`}
-                  role='switch'
-                  aria-checked={isDarkMode}
-                  aria-labelledby='switch-1-label'
-                  onClick={handleThemeToggleClick}
-                >
-                  <span
-                    aria-hidden='true'
-                    className={`h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out ${
-                      isDarkMode ? 'translate-x-3.5' : 'translate-x-0'
-                    }`}
-                  />
-                </button>
-              </div>
-            </div>
             <div ref={noticeIconRef} className='cursor-pointer' onClick={handleNoticeIconClick}>
               {ICONS.notice}
               {showNotice === 1 && (
