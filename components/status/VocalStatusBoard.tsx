@@ -79,29 +79,29 @@ export default function StatusBoard({
       </div>
     );
   });
-
+  console.log(responseDataList);
   return (
-    <div className='z-10 m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-auto rounded-xl border bg-white dark:bg-slate-800'>
-      {/* 위에 버튼 4개있는 부분 */}
+    <div className='z-10 m-10 flex min-h-[80vh] flex-col overflow-auto rounded-xl border bg-white dark:bg-slate-800'>
       <div className='sticky top-0 flex justify-between space-x-4 border-b-2 bg-white p-10 pb-4 dark:bg-slate-700'>
         <div className='flex items-center space-x-2'>
-          {category !== 'presentations' && (
-            <input
-              value='white'
-              type='checkbox'
-              checked={checked}
-              onChange={() => {
-                setChecked(!checked);
-                if (checked) setCheckedList([]);
-                else setCheckedList(responseDataList.map((item) => item));
-              }}
-              className='mr-10 h-6 w-6 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500'
-            />
-          )}
+          <input
+            value='white'
+            type='checkbox'
+            checked={checked}
+            onChange={() => {
+              setChecked(!checked);
+              if (checked) setCheckedList([]);
+              else setCheckedList(responseDataList.map((item) => item));
+            }}
+            className={cls(
+              category !== 'presentations' ? '' : 'invisible',
+              'mr-10 h-6 w-6 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500',
+            )}
+          />
           {btnBox}
         </div>
       </div>
-      <div className=' mt-6 space-y-5'>
+      <div className='mt-6 w-full space-y-5'>
         {responseDataList.map((item, i) => (
           <div
             key={item.formId}
