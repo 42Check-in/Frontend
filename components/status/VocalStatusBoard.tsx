@@ -81,7 +81,7 @@ export default function StatusBoard({
   });
 
   return (
-    <div className='z-10 m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-scroll rounded-xl border bg-white dark:bg-slate-800'>
+    <div className='z-10 m-10 flex max-h-80 min-h-[80vh] min-w-max flex-col overflow-auto rounded-xl border bg-white dark:bg-slate-800'>
       {/* 위에 버튼 4개있는 부분 */}
       <div className='sticky top-0 flex justify-between space-x-4 border-b-2 bg-white p-10 pb-4 dark:bg-slate-700'>
         <div className='flex items-center space-x-2'>
