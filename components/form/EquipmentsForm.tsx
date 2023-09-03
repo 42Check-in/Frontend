@@ -24,18 +24,21 @@ interface EquipmentsFormProps {
 function ReturnDate(): ReactElement {
   const { watch } = useFormContext();
 
+  const date = watch('date');
+  if (date === undefined) return;
+
   const period = watch('period', 0);
-  const today = dayjs();
-  const returnMonth = today.get('month') + Number(PERIODS[period].at(0));
-  const returnDate = today.month(returnMonth).format('YYYY-MM-DD');
+  const meetingDate = dayjs(date);
+  const returnMonth = meetingDate.get('month') + Number(PERIODS[period].at(0));
+  const returnDate = meetingDate.month(returnMonth).format('YYYY-MM-DD');
 
   return (
     <FormInput
       name='returnDate'
-      title='반납 예정일'
+      title='반납 예정 날짜'
       value={returnDate}
       type='date'
-      registerOptions={{ required: false }}
+      registerOptions={{ value: returnDate }}
       span='1'
       disabled
     />
@@ -122,11 +125,18 @@ export default function EquipmentsForm({ setShowModal }: EquipmentsFormProps): R
           <ReturnDate />
           <FormInput
             name='date'
-            title='면담 희망일'
+            title='면담 희망 날짜'
             type='date'
             span='1'
             registerOptions={{ onChange: handleDateChange }}
             value={formInfo?.date ?? selectedDate}
+          />
+          <FormInput
+            name='time'
+            title='면담 희망 시각'
+            type='time'
+            span='1'
+            value={formInfo?.time}
           />
           <FormAgreement>
             <p>대여한 물품이 파손될 경우 비용이 청구될 수 있음을 확인했습니다.</p>
