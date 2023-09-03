@@ -1,7 +1,7 @@
 import PresentationsFormInfo from '@/interfaces/PresentationsFormInfo';
 import apiController from '@/utils/apiController';
 import { AxiosRequestConfig } from 'axios';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import debounce from 'lodash.debounce';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
