@@ -26,7 +26,6 @@ export default function Status({
   mouseOnIndex,
   vocal,
 }: StatusProps): ReactElement {
-  console.log(isMobile);
   const date = dayjs(status.date).format('YY.MM.DD');
   const router = useRouter();
   const isConferenceRoom = router.query.category === 'conference-rooms';
