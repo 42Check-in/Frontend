@@ -4,7 +4,7 @@ import PresentationsForm from '@/components/form/PresentationsForm';
 import VisitorsForm from '@/components/form/VisitorsForm';
 import WarningModal from '@/components/modal/WarningModal';
 import VocalStatusBoard from '@/components/status/VocalStatusBoard';
-import type { ApplicationFormInfo } from '@/interfaces/ApplicationFormInfo';
+import type { ApplicationFormInfo } from '@/interfaces/FormInfo';
 import apiController from '@/utils/apiController';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';

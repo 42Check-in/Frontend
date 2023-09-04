@@ -1,7 +1,8 @@
-import type { ApplicationFormInfo } from '@/interfaces/ApplicationFormInfo';
+import type { ApplicationFormInfo } from '@/interfaces/FormInfo';
 import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
 import { useRouter } from 'next/router';
+import type { ParsedUrlQueryInput } from 'querystring';
 import { useEffect, useState } from 'react';
 import type { Dispatch, ReactElement } from 'react';
 
@@ -43,7 +44,7 @@ export default function StatusBoard({
 
   useEffect(() => {
     if (selectedFormInfo === undefined) return;
-    const query = { category };
+    const query: ParsedUrlQueryInput = { category };
     if (selectedFormInfo !== null) {
       query.formInfo = JSON.stringify(selectedFormInfo);
     }
