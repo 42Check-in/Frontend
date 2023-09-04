@@ -1,4 +1,4 @@
-import type FormInfo from '@/interfaces/FormInfo';
+import type { ApplicationFormInfo } from '@/interfaces/ApplicationFormInfo';
 import { cls } from '@/styles/cls';
 import apiController from '@/utils/apiController';
 import { useRouter } from 'next/router';
@@ -11,8 +11,8 @@ import { btnContent } from './StatusBoard';
 
 interface VocalStatusBoardProps {
   category: string;
-  setCheckedList: Dispatch<React.SetStateAction<FormInfo[]>>;
-  checkedList: FormInfo[];
+  setCheckedList: Dispatch<React.SetStateAction<ApplicationFormInfo[]>>;
+  checkedList: ApplicationFormInfo[];
   setChangePresentations: Dispatch<React.SetStateAction<{}>>;
   changePresentations: {};
 }
@@ -26,8 +26,8 @@ export default function StatusBoard({
 }: VocalStatusBoardProps): ReactElement {
   const router = useRouter();
   const [checked, setChecked] = useState(false);
-  const [formInfos, setFormInfos] = useState<FormInfo[]>();
-  const [selectedFormInfo, setSelectedFormInfo] = useState<FormInfo>();
+  const [formInfos, setFormInfos] = useState<ApplicationFormInfo[]>();
+  const [selectedFormInfo, setSelectedFormInfo] = useState<ApplicationFormInfo>();
 
   useEffect(() => {
     if (category === undefined) return;
