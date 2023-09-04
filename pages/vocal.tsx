@@ -26,8 +26,8 @@ export default function Vocal(): ReactElement {
           category: 'visitors',
           filter: 'not-approval',
           page: 1,
-          size: 10,
-          sort: 'id',
+          size: 8,
+          sort: 'id,desc',
         },
       });
       return;
