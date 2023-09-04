@@ -98,21 +98,21 @@ export default function PresentationsForm({ setShowModal }: PresentationsFormPro
             title='소요 시간'
             options={TIMES}
             span='1'
-            value={TIMES[formInfo?.time]}
+            value={formInfo?.time}
           />
           <FormSelect
             name='type'
             title='강연 종류'
             options={LECTURES}
             span='1'
-            value={LECTURES[formInfo?.type]}
+            value={formInfo?.type}
           />
           <FormSelect
             name='screen'
             title='영상 촬영'
             options={IS_VIDEO}
             span='1'
-            value={IS_VIDEO[formInfo?.screen]}
+            value={formInfo?.screen}
           />
           <FormInput name='date' title='강연 날짜' type='text' value={date} hidden />
         </div>
