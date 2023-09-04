@@ -27,7 +27,7 @@ export default function Vocal(): ReactElement {
           filter: 'not-approval',
           page: 1,
           size: 10,
-          sort: 'id,asc',
+          sort: 'id',
         },
       });
       return;
