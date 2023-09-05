@@ -109,7 +109,7 @@ export default function Vocal(): ReactElement {
       </button>
       {showModal && (
         <ModalWrapper>
-          <div className='text-modal'>해당 신청서를 승인 하시나요??</div>
+          <div className='text-modal'>선택한 신청서를 승인하시겠어요?</div>
           <div className='flex justify-center space-x-2'>
             <button
               onClick={(event) => {
@@ -123,6 +123,7 @@ export default function Vocal(): ReactElement {
               onClick={(event) => {
                 if (category !== 'presentations') void onClick(checkedList);
                 else void onClickPresentations(changePresentations);
+                router.reload();
                 setShowModal(false);
               }}
               className='button-modal dark:text-white'
