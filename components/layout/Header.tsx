@@ -82,6 +82,7 @@ export default function Header(): ReactElement {
     };
     async function fetchData(): Promise<void> {
       const { data } = await apiController(config);
+      console.log(data);
       setNoticeInfo(data);
     }
     void fetchData();
