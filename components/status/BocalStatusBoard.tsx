@@ -120,6 +120,8 @@ export default function BocalStatusBoard({
     });
   };
 
+  console.log(router.query.filter);
+
   const btnBox = btnContent
     .filter((value) => value.category !== 'conference-rooms')
     .map((item) => {
@@ -157,17 +159,22 @@ export default function BocalStatusBoard({
     <div className='m-4 flex h-full max-h-[79vh] min-w-[360px] flex-col justify-between overflow-auto rounded-xl border bg-white dark:bg-slate-800'>
       <div className='top-0 flex items-center justify-between space-x-4 border-b-2 bg-white p-4 dark:bg-slate-700'>
         <div className='flex w-full items-center space-x-2'>
-          <input
-            value='white'
-            type='checkbox'
-            checked={checked}
-            onChange={() => {
-              setChecked(!checked);
-              if (checked) setCheckedList([]);
-              else setCheckedList(formInfos.map((item) => item));
-            }}
-            className='mr-3 h-5 w-5 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500'
-          />
+          {
+            <input
+              value='white'
+              type='checkbox'
+              checked={checked}
+              onChange={() => {
+                setChecked(!checked);
+                if (checked) setCheckedList([]);
+                else setCheckedList(formInfos.map((item) => item));
+              }}
+              className={cls(
+                router.query.filter === 'approval' && 'invisible',
+                'mr-3 h-5 w-5 rounded border-gray-300 transition hover:ring-2 hover:ring-indigo-500 focus:ring-indigo-500',
+              )}
+            />
+          }
           <div className='flex space-x-2'>{btnBox}</div>
         </div>
         <div className='relative inline-block text-left'>
