@@ -154,7 +154,6 @@ export default function BocalStatusBoard({
         </div>
       );
     });
-
   return (
     <div className='m-4 flex h-full max-h-[79vh] min-w-[360px] flex-col justify-between overflow-auto rounded-xl border bg-white dark:bg-slate-800'>
       <div className='top-0 flex items-center justify-between space-x-4 border-b-2 bg-white p-4 dark:bg-slate-700'>
@@ -260,7 +259,7 @@ export default function BocalStatusBoard({
               }}
               className={cls(
                 (item.status > 0 && category !== 'presentations') ||
-                  (item.status > 3 && category === 'presentations')
+                  (item.status > 2 && category === 'presentations')
                   ? 'invisible'
                   : '',
                 'mx-2 h-4 w-4 rounded border-gray-300 transition',
