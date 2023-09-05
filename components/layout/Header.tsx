@@ -1,5 +1,5 @@
 import ICONS from '@/assets/icons';
-import { BOCAL_CATEGORIES } from '@/constants/categories';
+import CATEGORIES, { BOCAL_CATEGORIES } from '@/constants/categories';
 import type { ApplicationFormInfo } from '@/interfaces/FormInfo';
 import apiController from '@/utils/apiController';
 import logout from '@/utils/logout';
@@ -107,8 +107,10 @@ export default function Header(): ReactElement {
     };
     const { data } = await apiController<ApplicationFormInfo>(config);
     const formInfo = JSON.stringify(data);
+    const pathname = `/${BOCAL_CATEGORIES[category].name}/type/form`;
     await router.push({
-      pathname: `/${BOCAL_CATEGORIES[category].name}/form`,
+      pathname:
+        category === 2 ? pathname.replace('/form', '/type/form') : pathname,
       query: { formInfo },
     });
   };
