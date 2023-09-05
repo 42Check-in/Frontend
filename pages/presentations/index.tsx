@@ -12,6 +12,9 @@ export default function Presentations(): ReactElement {
   const today = dayjs();
   const [date, setDate] = useState(today);
   const [formInfos, setFormInfos] = useState<PresentationsFormInfo[]>();
+  const [isOpen, setIsOpen] = useState(false);
+  const [preList, setPreList] = useState<string[]>([]);
+  const [isWaitList, setIsWaitList] = useState<number[]>([]);
 
   useEffect(() => {
     const getFormInfos = async (): Promise<void> => {
@@ -21,6 +24,7 @@ export default function Presentations(): ReactElement {
       };
       const { data } = await apiController<PresentationsFormInfo[]>(config);
       setFormInfos(data);
+      setPreList(data.map((formInfo) => formInfo.date));
     };
     void getFormInfos();
   }, [date]);
@@ -34,6 +38,11 @@ export default function Presentations(): ReactElement {
     }
     setDate(dayjs(target.value));
   }, 420);
+
+  const handleWaitListClick = (formInfo: PresentationsFormInfo): void => {
+    console.log(formInfo);
+    setIsOpen(!isOpen);
+  };
 
   return (
     <div className='m-8 min-w-[300px] rounded-2xl border-2 border-[#6A70FF] bg-slate-100 p-4 shadow-xl dark:border-gray-300 dark:bg-gray-500'>
@@ -64,40 +73,65 @@ export default function Presentations(): ReactElement {
             query.formInfo = JSON.stringify(formInfo);
           }
           return (
-            <Link
-              key={index}
-              href={{
-                pathname: '/presentations/form',
-                query,
-              }}
-              className='group flex items-center justify-between rounded-md bg-white shadow-xl transition hover:bg-[#6AA6FF] dark:bg-gray-700 dark:hover:bg-gray-300'
-            >
-              <div className='flex items-center space-x-2'>
-                <button className='h-16 w-14 rounded-md text-2xl font-semibold text-gray-600 transition group-hover:text-white dark:text-white dark:group-hover:text-gray-700'>
-                  {formDate.get('date')}
-                </button>
-                <div className='overflow-hidden'>
-                  <p className='animate-slide whitespace-nowrap text-sm font-semibold text-gray-800 transition dark:text-white dark:group-hover:text-gray-800'>
-                    {subject ?? '신청을 기다리고 있습니다. 🤔'}
-                  </p>
-                  <p className='text-gray-500 dark:text-white dark:group-hover:text-gray-800'>
-                    {!isBlank && `${intraId} 😎`}
-                  </p>
-                </div>
-              </div>
-              <Link
-                href={{
-                  pathname: '/presentations/form',
-                  query: { date },
-                }}
-                className={`mr-4 rounded-xl px-3 py-0.5 text-[#FEFFFF] hover:text-black dark:text-[#EEEFEF] ${
-                  isBlank ? 'bg-indigo-200 dark:bg-indigo-800' : 'bg-violet-300 dark:bg-violet-900'
-                }
+            <>
+              {isWaitList && (
+                <Link
+                  key={index}
+                  href={{
+                    pathname: '/presentations/form',
+                    query,
+                  }}
+                  className='group relative z-10 flex items-center justify-between rounded-md bg-white shadow-xl transition hover:bg-[#6AA6FF] dark:bg-gray-700 dark:hover:bg-gray-300'
+                >
+                  <div className='flex items-center space-x-2'>
+                    <button className='h-16 w-14 rounded-md text-2xl font-semibold text-gray-600 transition group-hover:text-white dark:text-white dark:group-hover:text-gray-700'>
+                      {formDate.get('date')}
+                    </button>
+                    <div className='overflow-hidden'>
+                      <p className='animate-slide whitespace-nowrap text-sm font-semibold text-gray-800 transition dark:text-white dark:group-hover:text-gray-800'>
+                        {subject ?? '신청을 기다리고 있습니다. 🤔'}
+                      </p>
+                      <p className='text-gray-500 dark:text-white dark:group-hover:text-gray-800'>
+                        {!isBlank && `${intraId} 😎`}
+                      </p>
+                    </div>
+                  </div>
+                  <Link
+                    href={{
+                      pathname: '/presentations/form',
+                      query: { date },
+                    }}
+                    className={`mr-4 rounded-xl px-3 py-0.5 text-[#FEFFFF] hover:text-black dark:text-[#EEEFEF] ${
+                      isBlank
+                        ? 'bg-indigo-200 dark:bg-indigo-800'
+                        : 'bg-violet-300 dark:bg-violet-900'
+                    }
                 `}
-              >
-                {isBlank ? '신청' : '대기'}
-              </Link>
-            </Link>
+                  >
+                    {isBlank ? '신청하기' : '대기하기'}
+                  </Link>
+                </Link>
+              )}
+              {isOpen && (
+                <div className='relative -top-2 mx-1 h-14 bg-slate-300'>
+                  <div>
+                    <p className='text-sm font-semibold text-gray-800 transition dark:text-white dark:group-hover:text-gray-800'>
+                      {formInfo.intraId}님이
+                    </p>
+                  </div>
+                </div>
+              )}
+              {!isWaitList && (
+                <div
+                  onClick={() => {
+                    handleWaitListClick(formInfo);
+                  }}
+                  className='group relative -top-4 z-0 m-1 flex h-6 items-end justify-center rounded-b-xl bg-slate-300 '
+                >
+                  <i className='bx bxs-chevron-down group-hover:animate-bounce'></i>
+                </div>
+              )}
+            </>
           );
         })}
       </div>
