@@ -37,7 +37,7 @@ export default function Login(): ReactElement {
       />
       <div className='flex w-full min-w-max flex-col items-center justify-center space-y-10 lg:w-1/3'>
         <Link
-          href='https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-216dca40c46a9ceef4ce38bfb3891a961cc8270d51701347321b4c68ffd70be3&redirect_uri=https%3A%2F%2F42check-in.kr&response_type=code'
+          href='https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-216dca40c46a9ceef4ce38bfb3891a961cc8270d51701347321b4c68ffd70be3&redirect_uri=https%3A%2F%2F42check-in.kr%2Foauth%2Flogin&response_type=code'
           className='button px-44 py-2'
         >
           <p className='text-xl'>Sign in</p>
